@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Participant information</title>
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            font-family: "Helvetica Neue", Helvetica, sans-serif;
+            color: #444;
+            -webkit-font-smoothing: antialiased;
+            background: #f0f0f0;
+        }
+
+
+    </style>
+</head>
+<body>
+<p>
+<h1>User information</h1></p>
+<p>Name: <span th:text="${name1}"/> <span th:text="${name2}"/></p>
+<p>Birthdate: <span th:text="${birthdate}"/></p>
+<p>Nationality: <span th:text="${nationality}"/></p>
+<p>Address: <span th:text="${address}"/></p>
+<p>Polling station: <span th:text="${polling}"/></p>
+<p>Email: <span th:text="${email}"/></p>
+<br/>
+<p><a href="changep">Change your password</a></p>
+</body>
+</html>
