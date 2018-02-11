@@ -1,6 +1,6 @@
 package repository;
 
-import hello.UserInfo;
+import agent.UserInfo;
 
 public interface DBService {
 

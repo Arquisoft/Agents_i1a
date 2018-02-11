@@ -1,4 +1,4 @@
-package hello;
+package agent;
 
 import static org.junit.Assert.*;
 
@@ -6,6 +6,7 @@ import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
+import main.Application;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -93,7 +94,7 @@ public class ModelTest {
 
     @Test
     public void testCitizenDTO()throws Exception{
-        CitizenDTO citizen = new CitizenDTO();
+        AgentDTO citizen = new AgentDTO();
         assertNotNull(citizen);
     }
 

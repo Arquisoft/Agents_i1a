@@ -1,9 +1,9 @@
 package controller;
 
 
-import hello.CitizenDTO;
-import hello.CitizenLogin;
-import hello.UserInfo;
+import agent.AgentDTO;
+import agent.AgentLogin;
+import agent.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +22,7 @@ public class APIController {
 
     @RequestMapping(value = "/user", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<CitizenDTO> user(@RequestBody CitizenLogin login) {
+    public ResponseEntity<AgentDTO> user(@RequestBody AgentLogin login) {
         // If the combination of email and password is correct, the data of the user is returned
         // If not, 404 NOT FOUND is returned
 
@@ -30,7 +30,7 @@ public class APIController {
         if (user == null)
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         else {
-            CitizenDTO citizen = new CitizenDTO(user);
+            AgentDTO citizen = new AgentDTO(user);
             return new ResponseEntity<>(citizen, HttpStatus.OK);
         }
 

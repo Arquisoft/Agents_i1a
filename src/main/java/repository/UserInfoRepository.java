@@ -1,6 +1,6 @@
 package repository;
 
-import hello.UserInfo;
+import agent.UserInfo;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

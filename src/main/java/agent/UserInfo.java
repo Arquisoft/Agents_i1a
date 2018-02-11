@@ -1,12 +1,4 @@
-package hello;
-
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.Period;
-import java.time.ZoneId;
-import java.util.Date;
+package agent;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,59 +15,45 @@ public class UserInfo {
     private String id;
 
     private String password;
-    private Date birthDate;
     private String address;
-    private String nationality;  
     private int pollingStation;
     
     private String firstName;
     private String lastName;
-    private Integer age;
     private String NIF;
-    private String email; 
+    private String email;
+    private String kind;
 
     private UserInfo() {}
     
-    public UserInfo(String firstName, String lastName, String email, Date birthDate) {
+    public UserInfo(String firstName, String lastName, String email, String kind) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.birthDate = birthDate;
+        this.kind = kind;
     }
     
-    public UserInfo(String password, String firstName, String lastName, String email, Date birthDate) {
-        this(firstName, lastName, email, birthDate);
+    public UserInfo(String password, String firstName, String lastName, String email, String kind) {
+        this(firstName, lastName, email, kind);
     	this.password = password;
     }
 
-    public UserInfo(String firstName, String lastName, String email, String birthDate,
-            String address, String nationality, String ID, String NIF,
+    public UserInfo(String firstName, String lastName, String email,
+            String address, String ID, String NIF, String kind,
             String pollingStation) {
     	
     	this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        setBirthDate(birthDate);
         this.address = address;
-        this.nationality = nationality;
         this.id = ID;
         this.NIF = NIF;
+        this.kind = kind;
         this.pollingStation = Integer.parseInt(pollingStation);
     }
     
     public UserInfo(String[] data) {
-        this(data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7], data[8]);
-    }
-    
-    private void setBirthDate(String birthDate) {
-        DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        Date date = null;
-        try {
-            date = format.parse(birthDate);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        this.birthDate = date;
+        this(data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7]);
     }
 
     public String getPassword() {
@@ -92,24 +70,6 @@ public class UserInfo {
 
     public String getEmail() {
         return email;
-    }
-
-    public Integer getAge() {
-    	setAge(getBirthDate());
-        return age;
-    }
-    
-    private void setAge(Date birthdate) {
-    	LocalDate date = birthdate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        this.age = Period.between(date, LocalDate.now()).getYears();
-    }
-    
-    public String getNationality() {
-        return nationality;
-    }
-    
-    public Date getBirthDate() {
-        return birthDate;
     }
 
     public String getAddress() {
@@ -130,6 +90,10 @@ public class UserInfo {
 
     public int getPollingStation() {
         return pollingStation;
+    }
+
+    public String getKind(){
+        return this.kind;
     }
 
 	@Override
@@ -159,9 +123,10 @@ public class UserInfo {
 
 	@Override
 	public String toString() {
-		return "UserInfo [ID=" + id + ", password=" + password + ", birthDate=" + birthDate + ", address=" + address
-				+ ", nationality=" + nationality + ", pollingStation=" + pollingStation + ", firstName=" + firstName
-				+ ", lastName=" + lastName + ", age=" + age + ", NIF=" + NIF + ", email=" + email + "]";
+		return "UserInfo [ID=" + id + ", password=" + password + ", address=" + address
+				+ ", pollingStation=" + pollingStation + ", firstName=" + firstName
+				+ ", lastName=" + lastName + ", NIF=" + NIF + ", email=" + email
+                + ", kind=" + kind + "]";
 	}
 
 }

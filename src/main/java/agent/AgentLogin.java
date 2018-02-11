@@ -1,8 +1,8 @@
-package hello;
+package agent;
 
-public class CitizenLogin {
+public class AgentLogin {
 
-    private String login, password;
+    private String login, password, kind;
 
     public String getLogin() {
         return login;
@@ -19,4 +19,8 @@ public class CitizenLogin {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public String getKind() { return kind; }
+
+    public void setKind(String kind){ this.kind = kind; }
 }
