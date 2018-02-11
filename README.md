@@ -17,7 +17,7 @@ In order to run the application you need to download and install mongoDB. You mu
 - Guillermo Rodríguez González 
 
 # Course 2017/18 manteiners
-- Lucia Méndez López (@UO250970)
+- Lucia Méndez López (@UO250970, @Soondra)
 - Pablo Suárez García (@PabloSuaGar)
 - Marcial Francisco Parrilla Socas (@marcialfps)
 - Alejandro González Campomanes (@alexgonzcampomanes)
