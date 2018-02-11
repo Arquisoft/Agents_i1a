@@ -1,13 +1,11 @@
 package controller;
 
-import agent.UserInfo;
+import agent.AgentInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import repository.DBService;
 import org.springframework.stereotype.Controller;
-
-import java.text.DateFormat;
 
 /**
  * Created by guille on 19/02/2017.
@@ -28,24 +26,24 @@ public class FormController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String loginPost(Model model, @RequestParam(value = "login") String login, @RequestParam(value = "password") String password) {
+    public String loginPost(Model model, @RequestParam(value = "login") String login, @RequestParam(value = "password") String password,
+                            @RequestParam(value = "kind") String kind) {
         // If the combination of email and password is correct, the data of the user is returned
         // If not, 404 NOT FOUND is returned
-        UserInfo user = service.getParticipant(login, password);
+        AgentInfo user = service.getAgent(login, password, kind);
 
         if (user == null)
             return "usererror";
         else {
-            model.addAttribute("name1", user.getFirstName());
-            model.addAttribute("name2", user.getLastName());
-            model.addAttribute("email", user.getEmail());
-            model.addAttribute("address", user.getAddress());
-            model.addAttribute("nationality", user.getNationality());
-            model.addAttribute("polling", user.getPollingStation());
-            String birthdate = DateFormat.getDateInstance().format(user.getBirthDate());
-            model.addAttribute("birthdate", birthdate);
+            model.addAttribute( "name", user.getFirstName() + user.getLastName());
+            model.addAttribute( "location", user.getLocation());
+            model.addAttribute( "email", user.getEmail());
+            model.addAttribute( "id", user.getNIF());
+            model.addAttribute( "kind", user.getKind());
+            model.addAttribute( "kindCode", user.getKindCode());
 
-            //model.addAttribute("nif", citizen.NIF);
+            //model.addAttribute("polling", user.getPollingStation());
+
             return "info";
         }
 

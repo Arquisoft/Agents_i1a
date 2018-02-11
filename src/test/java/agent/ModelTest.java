@@ -63,9 +63,9 @@ public class ModelTest {
         ID = "@irsohgjisejgoiesgj";
         DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 
-        UserInfo user = new UserInfo(password, firstName, lastName, email, format.parse(birthDate));
-        UserInfo user2 = new UserInfo(firstName,lastName, email, format.parse(birthDate));
-        UserInfo user3 = new UserInfo(firstName, lastName, email, birthDate, address, nationality, ID, NIF, pollingStation.toString());
+        AgentInfo user = new AgentInfo(password, firstName, lastName, email, format.parse(birthDate));
+        AgentInfo user2 = new AgentInfo(firstName,lastName, email, format.parse(birthDate));
+        AgentInfo user3 = new AgentInfo(firstName, lastName, email, birthDate, address, nationality, ID, NIF, pollingStation.toString());
 
         assertTrue(user.getPassword().equals(password));
         assertTrue(user.getFirstName().equals(firstName));

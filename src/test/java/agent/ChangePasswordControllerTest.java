@@ -74,7 +74,7 @@ public class ChangePasswordControllerTest {
     @Test
     public void testPostChangePasswordSuccess() throws Exception {
         // If this test fails, tru clearing the database
-        UserInfo user = new UserInfo("pass", "name", "surname", "test1@mail.com", new Date());
+        AgentInfo user = new AgentInfo("pass", "name", "surname", "test1@mail.com", new Date());
         db.insertUser(user);
 
         mockMvc.perform(post("/changep")
@@ -88,7 +88,7 @@ public class ChangePasswordControllerTest {
                 .andExpect(content().string(containsString("passwform")))
                 .andExpect(content().string(containsString("result")))
                 .andExpect(content().string(containsString("Go back to")));
-        UserInfo retrieved = db.getParticipant("test1@mail.com", "newpass");
+        AgentInfo retrieved = db.getAgent("test1@mail.com", "newpass");
         assertNotNull(retrieved);
         assertTrue(retrieved.getEmail().equals("test1@mail.com"));
         assertTrue(!retrieved.getPassword().equals("pass"));
@@ -98,7 +98,7 @@ public class ChangePasswordControllerTest {
 
     @Test
     public void testPostChangePasswordFail1() throws Exception {
-        UserInfo user = new UserInfo("pass", "name", "surname", "test2@mail.com", new Date());
+        AgentInfo user = new AgentInfo("pass", "name", "surname", "test2@mail.com", new Date());
         db.insertUser(user);
 
         mockMvc.perform(post("/changep")
@@ -112,7 +112,7 @@ public class ChangePasswordControllerTest {
                 .andExpect(content().string(containsString("passwform")))
                 .andExpect(content().string(containsString("result")))
                 .andExpect(content().string(containsString("Go back to")));
-        UserInfo retrieved = db.getParticipant("test2@mail.com", "pass");
+        AgentInfo retrieved = db.getAgent("test2@mail.com", "pass");
         assertNotNull(retrieved);
         assertTrue(retrieved.getEmail().equals("test2@mail.com"));
         assertTrue(retrieved.getPassword().equals("pass"));
@@ -123,7 +123,7 @@ public class ChangePasswordControllerTest {
 
     @Test
     public void testPostChangePasswordFail2() throws Exception {
-        UserInfo user = new UserInfo("pass", "name", "surname", "test3@mail.com", new Date());
+        AgentInfo user = new AgentInfo("pass", "name", "surname", "test3@mail.com", new Date());
         db.insertUser(user);
 
         mockMvc.perform(post("/changep")
@@ -137,7 +137,7 @@ public class ChangePasswordControllerTest {
                 .andExpect(content().string(containsString("passwform")))
                 .andExpect(content().string(containsString("result")))
                 .andExpect(content().string(containsString("Go back to")));
-        UserInfo retrieved = db.getParticipant("test3@mail.com", "pass");
+        AgentInfo retrieved = db.getAgent("test3@mail.com", "pass");
         assertNotNull(retrieved);
         assertTrue(retrieved.getEmail().equals("test3@mail.com"));
         assertTrue(retrieved.getPassword().equals("pass"));

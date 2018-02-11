@@ -6,55 +6,56 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection= "users")
-public class UserInfo {
+public class AgentInfo {
 
     // Log
-    private static final Logger LOG = LoggerFactory.getLogger(UserInfo.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AgentInfo.class);
 
     @Id
     private String id;
 
     private String password;
-    private String address;
     private int pollingStation;
     
     private String firstName;
     private String lastName;
-    private String NIF;
+    private Double[] location;
     private String email;
+    private String NIF;
     private String kind;
 
-    private UserInfo() {}
+    private AgentInfo() {}
     
-    public UserInfo(String firstName, String lastName, String email, String kind) {
+    public AgentInfo(String firstName, String lastName, String email, String NIF, String kind) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.NIF = NIF;
         this.kind = kind;
     }
     
-    public UserInfo(String password, String firstName, String lastName, String email, String kind) {
-        this(firstName, lastName, email, kind);
+    public AgentInfo(String password, String firstName, String lastName, String email, String NIF, String kind) {
+        this(firstName, lastName, email, NIF, kind);
     	this.password = password;
     }
 
-    public UserInfo(String firstName, String lastName, String email,
-            String address, String ID, String NIF, String kind,
-            String pollingStation) {
+    public AgentInfo(String firstName, String lastName, String email,
+                     Double[] location, String ID, String NIF, String kind,
+                     String pollingStation) {
     	
     	this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.address = address;
+        this.location = location;
         this.id = ID;
         this.NIF = NIF;
         this.kind = kind;
         this.pollingStation = Integer.parseInt(pollingStation);
     }
     
-    public UserInfo(String[] data) {
-        this(data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7]);
-    }
+    //public AgentInfo(String[] data) {
+    //   this(data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7]);
+    //}
 
     public String getPassword() {
         return password;
@@ -72,8 +73,8 @@ public class UserInfo {
         return email;
     }
 
-    public String getAddress() {
-        return address;
+    public Double[] getLocation(){
+        return location;
     }
 
     public String getId() {
@@ -96,6 +97,11 @@ public class UserInfo {
         return this.kind;
     }
 
+    public int getKindCode(){
+        //TODO
+        return -1;
+    }
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -112,7 +118,7 @@ public class UserInfo {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		UserInfo other = (UserInfo) obj;
+		AgentInfo other = (AgentInfo) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -123,7 +129,7 @@ public class UserInfo {
 
 	@Override
 	public String toString() {
-		return "UserInfo [ID=" + id + ", password=" + password + ", address=" + address
+		return "AgentInfo [ID=" + id + ", password=" + password
 				+ ", pollingStation=" + pollingStation + ", firstName=" + firstName
 				+ ", lastName=" + lastName + ", NIF=" + NIF + ", email=" + email
                 + ", kind=" + kind + "]";

@@ -1,15 +1,15 @@
 package repository;
 
-import agent.UserInfo;
+import agent.AgentInfo;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserInfoRepository extends MongoRepository<UserInfo, String> {
+public interface UserInfoRepository extends MongoRepository<AgentInfo, String> {
 
-    UserInfo insert(UserInfo user);
+    AgentInfo insert(AgentInfo user);
 
-    UserInfo findByEmail(String email);
+    AgentInfo findByCombination(String login, String kind);
 
 
 }

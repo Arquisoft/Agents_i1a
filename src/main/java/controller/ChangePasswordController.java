@@ -1,6 +1,6 @@
 package controller;
 
-import agent.UserInfo;
+import agent.AgentInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,7 +29,7 @@ public class ChangePasswordController {
 
     @RequestMapping(value = "/changep", method = RequestMethod.POST)
     public String changePost(Model model, @RequestParam(value = "email") String email, @RequestParam(value = "old") String old, @RequestParam(value = "password") String password, @RequestParam(value = "password2") String password2) {
-        UserInfo user = service.getParticipant(email, old);
+        AgentInfo user = service.getAgent(email, old);
         if (user == null) {
             model.addAttribute("bg", "background: #F00;");
             model.addAttribute("result", "The password is incorrect");

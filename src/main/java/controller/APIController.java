@@ -3,7 +3,7 @@ package controller;
 
 import agent.AgentDTO;
 import agent.AgentLogin;
-import agent.UserInfo;
+import agent.AgentInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +26,7 @@ public class APIController {
         // If the combination of email and password is correct, the data of the user is returned
         // If not, 404 NOT FOUND is returned
 
-        UserInfo user = service.getParticipant(login.getLogin(), login.getPassword());
+        AgentInfo user = service.getAgent(login.getLogin(), login.getPassword(), login.getKind());
         if (user == null)
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         else {

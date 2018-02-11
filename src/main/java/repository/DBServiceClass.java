@@ -1,6 +1,6 @@
 package repository;
 
-import agent.UserInfo;
+import agent.AgentInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +13,7 @@ public class DBServiceClass implements DBService {
 
     @Override
     public boolean updateInfo(String id, String oldPass, String newPass) {
-        UserInfo user = repository.findOne(id);
+        AgentInfo user = repository.findOne(id);
         if (user.getPassword().equals(oldPass)) {
             user.setPassword(newPass);
             repository.save(user);
@@ -23,8 +23,9 @@ public class DBServiceClass implements DBService {
     }
 
     @Override
-    public UserInfo getParticipant(String email, String password) {
-        UserInfo user = repository.findByEmail(email);
+    public AgentInfo getAgent(String login, String password, String kind) {
+        //TODO
+        AgentInfo user = repository.findByCombination(login, kind);
         if (user != null && user.getPassword().equals(password))
             return user;
         else
@@ -32,7 +33,7 @@ public class DBServiceClass implements DBService {
     }
 
     @Override
-    public void insertUser(UserInfo user) {
+    public void insertUser(AgentInfo user) {
         repository.insert(user);
     }
 }

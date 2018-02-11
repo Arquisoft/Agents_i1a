@@ -3,7 +3,7 @@ package agent;
 public class AgentDTO {
 
     public String Name;
-    public String Location;
+    public Double[] Location;
     public String Email;
     public String ID;
     public String Kind;
@@ -11,9 +11,9 @@ public class AgentDTO {
 
     public AgentDTO() {}
 
-    public AgentDTO(UserInfo user) {
+    public AgentDTO(AgentInfo user) {
         this.Name = user.getFirstName() + user.getLastName();
-        //this.Location = user.getLocation();
+        this.Location = user.getLocation();
         this.Email = user.getEmail();
         this.ID = user.getNIF();
         this.Kind = user.getKind();

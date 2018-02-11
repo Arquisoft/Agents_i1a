@@ -22,5 +22,5 @@ public class AgentLogin {
 
     public String getKind() { return kind; }
 
-    public void setKind(String kind){ this.kind = kind; }
+    public void setKind(String kind) { this.kind = kind;}
 }
