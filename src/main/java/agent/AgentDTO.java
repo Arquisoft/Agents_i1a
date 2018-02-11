@@ -2,21 +2,21 @@ package agent;
 
 public class AgentDTO {
 
-    public String Name;
-    public Double[] Location;
-    public String Email;
+    public String name;
+    public String location;
+    public String email;
     public String ID;
-    public String Kind;
-    public int KindCode;
+    public String kind;
+    public String kindcode;
 
     public AgentDTO() {}
 
     public AgentDTO(AgentInfo user) {
-        this.Name = user.getFirstName() + user.getLastName();
-        this.Location = user.getLocation();
-        this.Email = user.getEmail();
+        this.name = user.getName();
+        this.location = user.getLocation();
+        this.email = user.getEmail();
         this.ID = user.getNIF();
-        this.Kind = user.getKind();
-        //this.KindCode;
+        this.kind = user.getKind();
+        this.kindcode = user.getKindCode();
     }
 }

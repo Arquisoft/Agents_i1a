@@ -56,9 +56,14 @@
 			<version>1.4.3.RELEASE</version>
 			<scope>test</scope>
 		</dependency>
+        <dependency>
+            <groupId>es.uniovi.asw</groupId>
+            <artifactId>participants_i3b</artifactId>
+            <version>0.0.1</version>
+        </dependency>
 
 
-	</dependencies>
+    </dependencies>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

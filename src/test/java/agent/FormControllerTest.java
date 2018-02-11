@@ -53,7 +53,7 @@ public class FormControllerTest {
 
     @Before
     public void setUp() throws Exception {
-        this.base = new URL("http://localhost:" + port + "/");
+        this.base = new URL("mongodb://Loader_i1a:EIIASW2018$@ds127888.mlab.com:27888/loader_i1a_db");
         template = new TestRestTemplate();
         mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
     }
@@ -64,30 +64,31 @@ public class FormControllerTest {
         mockMvc.perform(get("/login"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Username:")))
-                .andExpect(content().string(containsString("Password:")));
+                .andExpect(content().string(containsString("Password:")))
+                .andExpect(content().string(containsString("Kind:")));
     }
 
     @Test
     public void testLoginCorrect() throws Exception {
-        AgentInfo user = new AgentInfo("pass", "name", "surname", "macorrect@il.com", new Date());
+        AgentInfo user = new AgentInfo("pepe", "pepe123@uniovi.es", "person","1","pepe123");
         db.insertUser(user);
 
         mockMvc.perform(post("/login")
-                .param("login", "macorrect@il.com")
-                .param("password", "pass"))
+                .param("login", "pepe123@uniovi.es")
+                .param("password", "pepe123")
+                .param("kind","person"))
                 .andExpect(status().isOk())
-                .andExpect(model().attribute("name1", equalTo("name")))
-                .andExpect(model().attribute("name2", equalTo("surname")))
-                .andExpect(model().attribute("email", equalTo("macorrect@il.com")))
-                .andExpect(content().string(containsString("Name:")))
-                .andExpect(content().string(containsString("Birthdate:")));
+                .andExpect(model().attribute("name", equalTo("pepe")))
+                .andExpect(model().attribute("email", equalTo("pepe123@uniovi.es")))
+                .andExpect(model().attribute("kind",equalTo("person")));
     }
 
     @Test
     public void testLoginIncorrect() throws Exception {
         mockMvc.perform(post("/login")
                 .param("login", "inco@rre.ct")
-                .param("password", "user"))
+                .param("password", "user")
+                .param("kind","person"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Invalid login details.")));
     }

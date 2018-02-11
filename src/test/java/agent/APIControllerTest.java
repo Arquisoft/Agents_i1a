@@ -53,7 +53,8 @@ public class APIControllerTest {
 
     @Before
     public void setUp() throws Exception {
-        this.base = new URL("http://localhost:" + port + "/");
+        //this.base = new URL("http://localhost:" + port + "/");
+        this.base = new URL("mongodb://Loader_i1a:EIIASW2018$@ds127888.mlab.com:27888/loader_i1a_db");
         //noinspection deprecation
         template = new TestRestTemplate();
         mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
@@ -61,28 +62,28 @@ public class APIControllerTest {
 
     @Test
     public void testDatabase() throws Exception {
-        AgentInfo user = new AgentInfo("pass2", "name", "surname", "ma@il2.com", new Date());
+        AgentInfo user = new AgentInfo("pepe", "pepe123@uniovi.es", "person","1","pepe123");
         db.insertUser(user);
-        AgentInfo userFromDB = db.getAgent("ma@il2.com", "pass2");
+        AgentInfo userFromDB = db.getAgent("pepe123@uniovi.es", "pepe123","person");
         assertThat(user.getEmail(), equalTo(userFromDB.getEmail()));
         assertThat(user.getPassword(), equalTo(userFromDB.getPassword()));
 
-        boolean update = db.updateInfo(userFromDB.getId(), "pass2", "pass3");
-        userFromDB = db.getAgent("ma@il2.com", "pass3");
+        boolean update = db.updateInfo(userFromDB.getId(), "pepe123", "123pepe");
+        userFromDB = db.getAgent("pepe123@uniovi.es", "123pepe","person");
         assertThat(update, equalTo(true));
         assertThat(userFromDB, notNullValue());
-        assertThat("ma@il2.com", equalTo(userFromDB.getEmail()));
-        assertThat("pass3", equalTo(userFromDB.getPassword()));
+        assertThat("pepe123@uniovi.es", equalTo(userFromDB.getEmail()));
+        assertThat("123pepe", equalTo(userFromDB.getPassword()));
 
 
-        update = db.updateInfo(userFromDB.getId(), "pass2", "pass3");
+        update = db.updateInfo(userFromDB.getId(), "pepe123", "123pepe");
         assertThat(update, equalTo(false));
 
     }
 
     @Test
     public void postTestUser() throws Exception {
-        AgentInfo user = new AgentInfo("pass", "name", "surname", "ma@il.com", new Date());
+        AgentInfo user = new AgentInfo("pepe", "pepe123@uniovi.es", "person","1","pepe123");
         db.insertUser(user);
         mockMvc.perform(post("/user")
                 .content("{ \"login\": \"ma@il.com\", \"password\": \"pass\"}")

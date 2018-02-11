@@ -35,14 +35,12 @@ public class FormController {
         if (user == null)
             return "usererror";
         else {
-            model.addAttribute( "name", user.getFirstName() + user.getLastName());
+            model.addAttribute( "name", user.getName());
             model.addAttribute( "location", user.getLocation());
             model.addAttribute( "email", user.getEmail());
             model.addAttribute( "id", user.getNIF());
             model.addAttribute( "kind", user.getKind());
             model.addAttribute( "kindCode", user.getKindCode());
-
-            //model.addAttribute("polling", user.getPollingStation());
 
             return "info";
         }

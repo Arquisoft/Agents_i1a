@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import repository.DBService;
 
+
 /**
  * Created by guille on 20/02/2017.
  */
@@ -28,8 +29,14 @@ public class ChangePasswordController {
     }
 
     @RequestMapping(value = "/changep", method = RequestMethod.POST)
-    public String changePost(Model model, @RequestParam(value = "email") String email, @RequestParam(value = "old") String old, @RequestParam(value = "password") String password, @RequestParam(value = "password2") String password2) {
-        AgentInfo user = service.getAgent(email, old);
+    public String changePost(Model model
+            , @RequestParam(value = "email") String email
+            ,@RequestParam(value = "kind") String kind
+            , @RequestParam(value = "old") String old
+            , @RequestParam(value = "password") String password
+            , @RequestParam(value = "password2") String password2)
+        {
+        AgentInfo user = service.getAgent(email, old,kind);
         if (user == null) {
             model.addAttribute("bg", "background: #F00;");
             model.addAttribute("result", "The password is incorrect");

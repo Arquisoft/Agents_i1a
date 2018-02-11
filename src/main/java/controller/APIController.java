@@ -30,8 +30,8 @@ public class APIController {
         if (user == null)
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         else {
-            AgentDTO citizen = new AgentDTO(user);
-            return new ResponseEntity<>(citizen, HttpStatus.OK);
+            AgentDTO agent = new AgentDTO(user);
+            return new ResponseEntity<>(agent, HttpStatus.OK);
         }
 
     }

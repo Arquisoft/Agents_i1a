@@ -34,7 +34,7 @@ public class ModelTest {
 
     @Before
     public void setUp() throws Exception {
-        this.base = new URL("http://localhost:" + port + "/");
+        this.base = new URL("mongodb://Loader_i1a:EIIASW2018$@ds127888.mlab.com:27888/loader_i1a_db");
         //noinspection deprecation
         template = new TestRestTemplate();
     }
@@ -42,54 +42,34 @@ public class ModelTest {
     @Test
     public void testUserInfo() throws Exception {
         String password;
-        String firstName;
-        String lastName;
+        String name;
         String email;
-        String address;
-        String nationality;
-        String ID;
+        String location;
+        String kind;
         String NIF;
-        Integer pollingStation;
-        String birthDate;
-        firstName = "name";
-        lastName = "lastName";
+        name = "name";
         password = "password";
         email = "mail@mail.com";
-        birthDate = "17/09/1990";
-        address = "Calle";
-        nationality = "Ingles";
+        location = "caceres";
         NIF = "10203040A";
-        pollingStation = 123;
-        ID = "@irsohgjisejgoiesgj";
+        kind = "person";
         DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 
-        AgentInfo user = new AgentInfo(password, firstName, lastName, email, format.parse(birthDate));
-        AgentInfo user2 = new AgentInfo(firstName,lastName, email, format.parse(birthDate));
-        AgentInfo user3 = new AgentInfo(firstName, lastName, email, birthDate, address, nationality, ID, NIF, pollingStation.toString());
+        AgentInfo user = new AgentInfo(name,email,kind,NIF,password);
+        AgentInfo user2 = new AgentInfo(name,email,kind,NIF,password,location);
 
         assertTrue(user.getPassword().equals(password));
-        assertTrue(user.getFirstName().equals(firstName));
-        assertTrue(user.getLastName().equals(lastName));
+        assertTrue(user.getName().equals(name));
         assertTrue(user.getEmail().equals(email));
-        assertTrue(user.getBirthDate().equals(format.parse(birthDate)));
-        assertTrue(user2.getFirstName().equals(firstName));
-        assertTrue(user2.getLastName().equals(lastName));
+        assertTrue(user.getLocation().equals(""));
+        assertTrue(user.getKindCode().equals("1"));
+
+
+        assertTrue(user2.getName().equals(name));
         assertTrue(user2.getEmail().equals(email));
-        assertTrue(user2.getBirthDate().equals(format.parse(birthDate)));
-        assertTrue(user3.getFirstName().equals(firstName));
-        assertTrue(user3.getLastName().equals(lastName));
-        assertTrue(user3.getEmail().equals(email));
-        assertTrue(user3.getBirthDate().equals(format.parse(birthDate)));
-        assertTrue(user3.getAddress().equals(address));
-        assertTrue(user3.getNationality().equals(nationality));
-        assertTrue(user3.getId().equals(ID));
-        assertTrue(user3.getNIF().equals(NIF));
-        assertEquals((Integer)user3.getPollingStation(),pollingStation);
-        assertTrue(user3.equals(user3));
-        assertFalse(user2.toString().equals(user3.toString()));
-        assertTrue(user3.toString().equals(user3.toString()));
-        assertFalse(user2.hashCode() == user3.hashCode());
-        assertTrue(user3.hashCode() == user3.hashCode());
+        assertTrue(user2.getLocation().equals(location));
+
+
     }
 
     @Test

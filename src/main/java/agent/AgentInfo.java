@@ -5,6 +5,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.Objects;
+
 @Document(collection= "users")
 public class AgentInfo {
 
@@ -15,65 +17,61 @@ public class AgentInfo {
     private String id;
 
     private String password;
-    private int pollingStation;
-    
-    private String firstName;
-    private String lastName;
-    private Double[] location;
+    private String name;
+    private String location;
     private String email;
-    private String NIF;
     private String kind;
+    private String NIF;
+    private String kindcode;
 
     private AgentInfo() {}
     
-    public AgentInfo(String firstName, String lastName, String email, String NIF, String kind) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public AgentInfo(String name, String email, String kind,String NIF,String password) {
+        this.name = name;
         this.email = email;
-        this.NIF = NIF;
         this.kind = kind;
-    }
-    
-    public AgentInfo(String password, String firstName, String lastName, String email, String NIF, String kind) {
-        this(firstName, lastName, email, NIF, kind);
-    	this.password = password;
+        this.NIF = NIF;
+        this.password = password;
+        this.location = "";
+        assignKindCode(kind);
     }
 
-    public AgentInfo(String firstName, String lastName, String email,
-                     Double[] location, String ID, String NIF, String kind,
-                     String pollingStation) {
-    	
-    	this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
+    private void assignKindCode(String kind) {
+        if(kind.equals("person")){
+            this.kindcode = "1";
+        }else if(kind.equals("entity")){
+            this.kindcode = "2";
+        }
+        else if(kind.equals("sensor")){
+            this.kindcode ="3";
+        }
+    }
+
+
+    public AgentInfo(String name, String email,
+                     String kind,String NIF,String password,String location) {
+        this(name,email,kind,NIF,password);
         this.location = location;
-        this.id = ID;
-        this.NIF = NIF;
-        this.kind = kind;
-        this.pollingStation = Integer.parseInt(pollingStation);
+
     }
     
-    //public AgentInfo(String[] data) {
-    //   this(data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7]);
-    //}
+    public AgentInfo(String[] data) {
+       this(data[0], data[1], data[2], data[3], data[4], data[5]);
+    }
 
     public String getPassword() {
         return password;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
+    public String getName() {
+        return name;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public Double[] getLocation(){
+    public String getLocation(){
         return location;
     }
 
@@ -85,54 +83,48 @@ public class AgentInfo {
         this.password = pw;
     }
 
-    public String getNIF() {
-        return NIF;
-    }
-
-    public int getPollingStation() {
-        return pollingStation;
-    }
-
     public String getKind(){
         return this.kind;
     }
 
-    public int getKindCode(){
-        //TODO
-        return -1;
+    public String getKindCode(){return kindcode; }
+
+    public String getNIF() {
+        return NIF;
+    }
+    @Override
+    public String toString() {
+        return "AgentInfo{" +
+                "id='" + id + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", location='" + location + '\'' +
+                ", email='" + email + '\'' +
+                ", kind='" + kind + '\'' +
+                ", NIF='" + NIF + '\'' +
+                ", kindcode='" + kindcode + '\'' +
+                '}';
     }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
-	}
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AgentInfo agentInfo = (AgentInfo) o;
+        return Objects.equals(id, agentInfo.id) &&
+                Objects.equals(password, agentInfo.password) &&
+                Objects.equals(name, agentInfo.name) &&
+                Objects.equals(location, agentInfo.location) &&
+                Objects.equals(email, agentInfo.email) &&
+                Objects.equals(kind, agentInfo.kind) &&
+                Objects.equals(NIF, agentInfo.NIF) &&
+                Objects.equals(kindcode, agentInfo.kindcode);
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		AgentInfo other = (AgentInfo) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		return true;
-	}
+    @Override
+    public int hashCode() {
 
-	@Override
-	public String toString() {
-		return "AgentInfo [ID=" + id + ", password=" + password
-				+ ", pollingStation=" + pollingStation + ", firstName=" + firstName
-				+ ", lastName=" + lastName + ", NIF=" + NIF + ", email=" + email
-                + ", kind=" + kind + "]";
-	}
+        return Objects.hash(id, password, name, location, email, kind, NIF, kindcode);
+    }
 
 }
