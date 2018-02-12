@@ -6,7 +6,6 @@ import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
-import main.Application;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,7 +21,7 @@ import org.springframework.web.client.RestTemplate;
 @SuppressWarnings("deprecation")
 @RunWith(SpringJUnit4ClassRunner.class)
 @ComponentScan("repository")
-@SpringApplicationConfiguration(classes = Application.class)
+@SpringApplicationConfiguration(classes = AgentLogin.Application.class)
 @WebAppConfiguration
 @IntegrationTest({"server.port=0"})
 public class ModelTest {
@@ -55,7 +54,6 @@ public class ModelTest {
         location = "caceres";
         NIF = "10203040A";
         kind = "person";
-        DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 
         AgentInfo user = new AgentInfo(name,email,kind,NIF,password);
         AgentInfo user2 = new AgentInfo(name,email,kind,NIF,password,location);

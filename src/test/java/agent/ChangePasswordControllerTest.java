@@ -1,7 +1,6 @@
 package agent;
 
 import com.mongodb.MongoClientURI;
-import main.Application;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,7 +35,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SuppressWarnings("deprecation")
 @RunWith(SpringJUnit4ClassRunner.class)
 @ComponentScan("repository")
-@SpringApplicationConfiguration(classes = Application.class)
+@SpringApplicationConfiguration(classes = AgentLogin.Application.class)
 @WebAppConfiguration
 @IntegrationTest({"server.port=0"})
 public class ChangePasswordControllerTest {

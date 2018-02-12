@@ -10,7 +10,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.net.URL;
 
-import main.Application;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,7 +32,7 @@ import repository.DBService;
 @SuppressWarnings("deprecation")
 @RunWith(SpringJUnit4ClassRunner.class)
 @ComponentScan("repository")
-@SpringApplicationConfiguration(classes = Application.class)
+@SpringApplicationConfiguration(classes = AgentLogin.Application.class)
 @WebAppConfiguration
 @IntegrationTest({"server.port=0"})
 public class FormControllerTest {

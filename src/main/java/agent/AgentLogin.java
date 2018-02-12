@@ -1,5 +1,8 @@
 package agent;
 
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
 public class AgentLogin {
 
     private String login, password, kind;
@@ -23,4 +26,14 @@ public class AgentLogin {
     public String getKind() { return kind; }
 
     public void setKind(String kind) { this.kind = kind;}
+
+    @SpringBootApplication
+    //@EnableMongoRepositories("repository")
+    //@ComponentScan({"repository","controller", "agent"})
+    public static class Application {
+
+        public static void main(String[] args) {
+            SpringApplication.run(Application.class, args);
+        }
+    }
 }

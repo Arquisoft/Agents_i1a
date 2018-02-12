@@ -10,7 +10,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.net.URL;
 import java.nio.charset.Charset;
 
-import main.Application;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,7 +32,7 @@ import repository.DBService;
 @SuppressWarnings("deprecation")
 @RunWith(SpringJUnit4ClassRunner.class)
 @ComponentScan("repository")
-@SpringApplicationConfiguration(classes = Application.class)
+@SpringApplicationConfiguration(classes = AgentLogin.Application.class)
 @WebAppConfiguration
 @IntegrationTest({"server.port=0"})
 public class APIControllerTest {
@@ -86,14 +85,15 @@ public class APIControllerTest {
         AgentInfo user = new AgentInfo("pepe", "pepe123@uniovi.es", "person","1","pepe123");
         db.insertUser(user);
         mockMvc.perform(post("/user")
-                .content("{ \"login\": \"ma@il.com\", \"password\": \"pass\"}")
+                .content("{ \"login\": \"pepe123@uniovi.es\", \"password\": \"pepe123\", \"kind\": \"person\"}")
                 .contentType(new MediaType(MediaType.APPLICATION_JSON.getType(),
                         MediaType.APPLICATION_JSON.getSubtype(),
                         Charset.forName("utf8"))))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andExpect(content().encoding("UTF-8"))
-                .andExpect(content().json("{\"firstName\":\"name\",\"lastName\":\"surname\",\"age\":0,\"ID\":null,\"email\":\"ma@il.com\"}")
+                .andExpect(content().json("{\"name\":\"pepe\",\"location\":\"\",\"email\":\"pepe123@uniovi.es\",\"ID\":\"1\",\"kind\":\"person\" " +
+                        "\"kindcode\":\"1\" }")
                 );
     }
 
