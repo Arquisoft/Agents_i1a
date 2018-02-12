@@ -8,8 +8,7 @@ import org.springframework.stereotype.Service;
 public class DBServiceClass implements DBService {
 
     @Autowired
-    private
-    UserInfoRepository repository;
+    private UserInfoRepository repository;
 
     @Override
     public boolean updateInfo(String id, String oldPass, String newPass) {

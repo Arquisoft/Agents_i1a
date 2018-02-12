@@ -76,7 +76,7 @@ public class AgentInfo {
     }
 
     public String getId() {
-        return id;
+        return NIF;
     }
     
     public void setPassword(String pw) {
@@ -95,7 +95,7 @@ public class AgentInfo {
     @Override
     public String toString() {
         return "AgentInfo{" +
-                "id='" + id + '\'' +
+                "id='" + NIF + '\'' +
                 ", password='" + password + '\'' +
                 ", name='" + name + '\'' +
                 ", location='" + location + '\'' +
@@ -111,7 +111,7 @@ public class AgentInfo {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AgentInfo agentInfo = (AgentInfo) o;
-        return Objects.equals(id, agentInfo.id) &&
+        return Objects.equals(NIF, agentInfo.NIF) &&
                 Objects.equals(password, agentInfo.password) &&
                 Objects.equals(name, agentInfo.name) &&
                 Objects.equals(location, agentInfo.location) &&
@@ -124,7 +124,7 @@ public class AgentInfo {
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, password, name, location, email, kind, NIF, kindcode);
+        return Objects.hash(NIF, password, name, location, email, kind, NIF, kindcode);
     }
 
 }

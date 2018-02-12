@@ -9,7 +9,7 @@ public interface UserInfoRepository extends MongoRepository<AgentInfo, String> {
 
     AgentInfo insert(AgentInfo user);
 
-    AgentInfo findByCombination(String login, String kind);
+    AgentInfo findByCombination(String name, String kind);
 
 
 }

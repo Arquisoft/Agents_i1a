@@ -30,11 +30,13 @@ public class ModelTest {
     private int port;
 
     private URL base;
+   // private MongoClientURI base;
     private RestTemplate template;
 
     @Before
     public void setUp() throws Exception {
-        this.base = new URL("mongodb://Loader_i1a:EIIASW2018$@ds127888.mlab.com:27888/loader_i1a_db");
+        this.base = new URL("http://localhost:" + port + "/");
+        //this.base = new MongoClientURI("mongodb://Loader_i1a:EIIASW2018$@ds127888.mlab.com:27888/loader_i1a_db");
         //noinspection deprecation
         template = new TestRestTemplate();
     }

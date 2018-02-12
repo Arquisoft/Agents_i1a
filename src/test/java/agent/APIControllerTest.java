@@ -9,7 +9,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.net.URL;
 import java.nio.charset.Charset;
-import java.util.Date;
 
 import main.Application;
 import org.junit.Before;
@@ -42,6 +41,7 @@ public class APIControllerTest {
     private int port;
 
     private URL base;
+    //private MongoClientURI base;
     private RestTemplate template;
     private MockMvc mockMvc;
 
@@ -53,8 +53,8 @@ public class APIControllerTest {
 
     @Before
     public void setUp() throws Exception {
-        //this.base = new URL("http://localhost:" + port + "/");
-        this.base = new URL("mongodb://Loader_i1a:EIIASW2018$@ds127888.mlab.com:27888/loader_i1a_db");
+        this.base = new URL("http://localhost:" + port + "/");
+        //this.base = new MongoClientURI("mongodb://Loader_i1a:EIIASW2018$@ds127888.mlab.com:27888/loader_i1a_db");
         //noinspection deprecation
         template = new TestRestTemplate();
         mockMvc = MockMvcBuilders.webAppContextSetup(context).build();

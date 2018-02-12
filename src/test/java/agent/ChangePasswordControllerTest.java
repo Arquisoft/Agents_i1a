@@ -1,5 +1,6 @@
 package agent;
 
+import com.mongodb.MongoClientURI;
 import main.Application;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,9 +19,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.WebApplicationContext;
 import repository.DBService;
-
-import java.net.URL;
-import java.util.Date;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
@@ -45,7 +43,8 @@ public class ChangePasswordControllerTest {
     @Value("${local.server.port}")
     private int port;
 
-    private URL base;
+    //private URL base;
+    private MongoClientURI base;
     private RestTemplate template;
     private MockMvc mockMvc;
 
@@ -57,7 +56,8 @@ public class ChangePasswordControllerTest {
 
     @Before
     public void setUp() throws Exception {
-        this.base = new URL("http://localhost:" + port + "/");
+        //this.base = new URL("http://localhost:" + port + "/");
+        this.base = new MongoClientURI("mongodb://Loader_i1a:EIIASW2018$@ds127888.mlab.com:27888/loader_i1a_db");
         template = new TestRestTemplate();
         mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
     }
