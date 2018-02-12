@@ -23,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SuppressWarnings("deprecation")
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = AgentLogin.Application.class)
+@SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
 @IntegrationTest({"server.port=0"})
 public class MainControllerTest {
@@ -45,7 +45,7 @@ public class MainControllerTest {
         //this.base = new MongoClientURI("mongodb://Loader_i1a:EIIASW2018$@ds127888.mlab.com:27888/loader_i1a_db");
 
         template = new TestRestTemplate();
-        AgentLogin.Application.main(new String[0]);
+        Application.main(new String[0]);
         mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
     }
 

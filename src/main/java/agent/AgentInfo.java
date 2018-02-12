@@ -80,7 +80,7 @@ public class AgentInfo {
     }
 
     public String getId() {
-        return NIF;
+        return id;
     }
 
     public String getKind(){
