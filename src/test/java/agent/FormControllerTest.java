@@ -63,23 +63,23 @@ public class FormControllerTest {
         ResponseEntity<String> response = template.getForEntity(base.toString(), String.class);
         mockMvc.perform(get("/login"))
                 .andExpect(status().isOk())
-                .andExpect(content().string(containsString("Username:")))
+                .andExpect(content().string(containsString("Email:")))
                 .andExpect(content().string(containsString("Password:")))
                 .andExpect(content().string(containsString("Kind:")));
     }
 
     @Test
     public void testLoginCorrect() throws Exception {
-        AgentInfo user = new AgentInfo("pepe", "pepe123@uniovi.es", "person","1","pepe123");
+        AgentInfo user = new AgentInfo("juan", "juan123@uniovi.es", "person","2","juan123");
         db.insertUser(user);
 
         mockMvc.perform(post("/login")
-                .param("login", "pepe123@uniovi.es")
-                .param("password", "pepe123")
+                .param("login", "juan123@uniovi.es")
+                .param("password", "juan123")
                 .param("kind","person"))
                 .andExpect(status().isOk())
-                .andExpect(model().attribute("name", equalTo("pepe")))
-                .andExpect(model().attribute("email", equalTo("pepe123@uniovi.es")))
+                .andExpect(model().attribute("name", equalTo("juan")))
+                .andExpect(model().attribute("email", equalTo("juan123@uniovi.es")))
                 .andExpect(model().attribute("kind",equalTo("person")));
     }
 

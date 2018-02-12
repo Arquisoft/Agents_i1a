@@ -19,6 +19,8 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.WebApplicationContext;
 import repository.DBService;
 
+import java.net.URL;
+
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertTrue;
@@ -42,8 +44,8 @@ public class ChangePasswordControllerTest {
     @Value("${local.server.port}")
     private int port;
 
-    //private URL base;
-    private MongoClientURI base;
+    private URL base;
+    //private MongoClientURI base;
     private RestTemplate template;
     private MockMvc mockMvc;
 
@@ -55,8 +57,8 @@ public class ChangePasswordControllerTest {
 
     @Before
     public void setUp() throws Exception {
-        //this.base = new URL("http://localhost:" + port + "/");
-        this.base = new MongoClientURI("mongodb://Loader_i1a:EIIASW2018$@ds127888.mlab.com:27888/loader_i1a_db");
+        this.base = new URL("http://localhost:" + port + "/");
+        //this.base = new MongoClientURI("mongodb://Loader_i1a:EIIASW2018$@ds127888.mlab.com:27888/loader_i1a_db");
         template = new TestRestTemplate();
         mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
     }
@@ -73,14 +75,14 @@ public class ChangePasswordControllerTest {
     @Test
     public void testPostChangePasswordSuccess() throws Exception {
         // If this test fails, tru clearing the database
-        AgentInfo user = new AgentInfo("pepe", "pepe123@uniovi.es", "person","1","pepe123");
+        AgentInfo user = new AgentInfo("marta", "marta123@uniovi.es", "person","5","marta123");
         db.insertUser(user);
 
         mockMvc.perform(post("/changep")
-                .param("email", "pepe123@uniovi.es")
-                .param("old", "pepe123")
-                .param("password", "123pepe")
-                .param("password2", "123pepe")
+                .param("email", "marta123@uniovi.es")
+                .param("old", "marta123")
+                .param("password", "123marta")
+                .param("password2", "123marta")
                 .param("kind","person"))
                 .andExpect(status().isOk())
                 .andExpect(model().attribute("result", equalTo("The password has been changed")))
@@ -88,60 +90,62 @@ public class ChangePasswordControllerTest {
                 .andExpect(content().string(containsString("passwform")))
                 .andExpect(content().string(containsString("result")))
                 .andExpect(content().string(containsString("Go back to")));
-        AgentInfo retrieved = db.getAgent("pepe123@uniovi.es", "newpass","person");
+        AgentInfo retrieved = db.getAgent("marta123@uniovi.es", "123marta","person");
         assertNotNull(retrieved);
-        assertTrue(retrieved.getEmail().equals("pepe123@uniovi.es"));
-        assertTrue(!retrieved.getPassword().equals("123pepe"));
-        assertTrue(retrieved.getPassword().equals("123pepe"));
+        assertTrue(retrieved.getEmail().equals("marta123@uniovi.es"));
+        assertTrue(!retrieved.getPassword().equals("marta123"));
+        assertTrue(retrieved.getPassword().equals("123marta"));
 
     }
 
     @Test
     public void testPostChangePasswordFail1() throws Exception {
-        AgentInfo user = new AgentInfo("pepe", "pepe123@uniovi.es", "person","1","pepe123");
+        AgentInfo user = new AgentInfo("julia", "julia123@uniovi.es", "person","6","julia123");
         db.insertUser(user);
 
         mockMvc.perform(post("/changep")
-                .param("email", "test2@mail.com")
-                .param("old", "pass")
-                .param("password", "newpass1")
-                .param("password2", "newpass"))
+                .param("email", "julia123@uniovi.es")
+                .param("old", "julia123")
+                .param("password", "123julia")
+                .param("password2", "12julia")
+                .param("kind","person"))
                 .andExpect(status().isOk())
                 .andExpect(model().attribute("result", equalTo("The passwords don't match")))
                 .andExpect(model().attribute("bg", equalTo("background: #F00;")))
                 .andExpect(content().string(containsString("passwform")))
                 .andExpect(content().string(containsString("result")))
                 .andExpect(content().string(containsString("Go back to")));
-        AgentInfo retrieved = db.getAgent("test2@mail.com", "pass","person");
+        AgentInfo retrieved = db.getAgent("julia123@uniovi.es", "julia123","person");
         assertNotNull(retrieved);
-        assertTrue(retrieved.getEmail().equals("test2@mail.com"));
-        assertTrue(retrieved.getPassword().equals("pass"));
-        assertTrue(!retrieved.getPassword().equals("newpass"));
-        assertTrue(!retrieved.getPassword().equals("newpass2"));
+        assertTrue(retrieved.getEmail().equals("julia123@uniovi.es"));
+        assertTrue(retrieved.getPassword().equals("julia123"));
+        assertTrue(!retrieved.getPassword().equals("123julia"));
+        assertTrue(!retrieved.getPassword().equals("12julia"));
 
     }
 
     @Test
     public void testPostChangePasswordFail2() throws Exception {
-        AgentInfo user = new AgentInfo("pepe", "pepe123@uniovi.es", "person","1","pepe123");
+        AgentInfo user = new AgentInfo("lucia", "lucia123@uniovi.es", "person","8","lucia123");
         db.insertUser(user);
 
         mockMvc.perform(post("/changep")
-                .param("email", "test3@mail.com")
-                .param("old", "wrongpass")
-                .param("password", "new")
-                .param("password2", "new"))
+                .param("email", "lucia123@uniovi.es")
+                .param("old", "lucia1")
+                .param("password", "123lucia")
+                .param("password2", "123lucia")
+                .param("kind","person"))
                 .andExpect(status().isOk())
                 .andExpect(model().attribute("result", equalTo("The password is incorrect")))
                 .andExpect(model().attribute("bg", equalTo("background: #F00;")))
                 .andExpect(content().string(containsString("passwform")))
                 .andExpect(content().string(containsString("result")))
                 .andExpect(content().string(containsString("Go back to")));
-        AgentInfo retrieved = db.getAgent("test3@mail.com", "pass","person");
+        AgentInfo retrieved = db.getAgent("lucia123@uniovi.es", "lucia123","person");
         assertNotNull(retrieved);
-        assertTrue(retrieved.getEmail().equals("test3@mail.com"));
-        assertTrue(retrieved.getPassword().equals("pass"));
-        assertTrue(!retrieved.getPassword().equals("new"));
+        assertTrue(retrieved.getEmail().equals("lucia123@uniovi.es"));
+        assertTrue(retrieved.getPassword().equals("lucia123"));
+        assertTrue(!retrieved.getPassword().equals("123lucia"));
 
     }
 }

@@ -61,38 +61,40 @@ public class APIControllerTest {
 
     @Test
     public void testDatabase() throws Exception {
-        AgentInfo user = new AgentInfo("pepe", "pepe123@uniovi.es", "person","1","pepe123");
+        AgentInfo user = new AgentInfo("paco", "paco123@uniovi.es", "person","3","paco123");
         db.insertUser(user);
-        AgentInfo userFromDB = db.getAgent("pepe123@uniovi.es", "pepe123","person");
+        AgentInfo userFromDB = db.getAgent("paco123@uniovi.es", "paco123","person");
         assertThat(user.getEmail(), equalTo(userFromDB.getEmail()));
         assertThat(user.getPassword(), equalTo(userFromDB.getPassword()));
+        assertThat(user.getKind(), equalTo(userFromDB.getKind()));
 
-        boolean update = db.updateInfo(userFromDB.getId(), "pepe123", "123pepe");
-        userFromDB = db.getAgent("pepe123@uniovi.es", "123pepe","person");
+        boolean update = db.updateInfo(userFromDB.getId(), "paco123", "123paco");
+        userFromDB = db.getAgent("paco123@uniovi.es", "123paco","person");
         assertThat(update, equalTo(true));
         assertThat(userFromDB, notNullValue());
-        assertThat("pepe123@uniovi.es", equalTo(userFromDB.getEmail()));
-        assertThat("123pepe", equalTo(userFromDB.getPassword()));
+        assertThat("paco123@uniovi.es", equalTo(userFromDB.getEmail()));
+        assertThat("123paco", equalTo(userFromDB.getPassword()));
 
 
-        update = db.updateInfo(userFromDB.getId(), "pepe123", "123pepe");
+        update = db.updateInfo(userFromDB.getId(), "paco123", "123pepe");
         assertThat(update, equalTo(false));
 
     }
 
     @Test
     public void postTestUser() throws Exception {
-        AgentInfo user = new AgentInfo("pepe", "pepe123@uniovi.es", "person","1","pepe123");
+        AgentInfo user = new AgentInfo("maria", "maria123@uniovi.es", "person","4","maria123");
         db.insertUser(user);
         mockMvc.perform(post("/user")
-                .content("{ \"login\": \"pepe123@uniovi.es\", \"password\": \"pepe123\", \"kind\": \"person\"}")
+                .content("{ \"login\": \"maria123@uniovi.es\", \"password\": \"maria123\", \"kind\": \"person\"}")
                 .contentType(new MediaType(MediaType.APPLICATION_JSON.getType(),
                         MediaType.APPLICATION_JSON.getSubtype(),
                         Charset.forName("utf8"))))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andExpect(content().encoding("UTF-8"))
-                .andExpect(content().json("{\"name\":\"pepe\",\"location\":\"\",\"email\":\"pepe123@uniovi.es\",\"ID\":\"1\",\"kind\":\"person\" " +
+                .andExpect(content().json("{\"name\":\"maria\"," +
+                        "\"location\":\"\",\"email\":\"maria123@uniovi.es\",\"kind\":\"person\", " +
                         "\"kindcode\":\"1\" }")
                 );
     }

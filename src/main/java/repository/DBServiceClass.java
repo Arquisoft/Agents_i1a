@@ -24,8 +24,7 @@ public class DBServiceClass implements DBService {
     @Override
     public AgentInfo getAgent(String email, String password, String kind) {
         AgentInfo user = repository.findByEmail(email);
-        if (user != null && user.getPassword().equals(password)
-               /*  && user.getKind().equals(kind)*/)
+        if (user != null && user.getPassword().equals(password) && user.getKind().equals(kind))
             return user;
         else
             return null;
