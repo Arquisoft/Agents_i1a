@@ -63,6 +63,10 @@ public class AgentInfo {
         return password;
     }
 
+    public void setPassword(String pw) {
+        this.password = pw;
+    }
+
     public String getName() {
         return name;
     }
@@ -77,10 +81,6 @@ public class AgentInfo {
 
     public String getId() {
         return id;
-    }
-    
-    public void setPassword(String pw) {
-        this.password = pw;
     }
 
     public String getKind(){
