@@ -3,10 +3,15 @@
 [![codecov](https://codecov.io/gh/Arquisoft/Agents_i1a/branch/master/graph/badge.svg)](https://codecov.io/gh/Arquisoft/Agents_i1a)
 
 
-# participants_i3b
+# agents_i1b
 
 
-In order to run the application you need to download and install mongoDB. You must create an empty folder called "data\db" in the root of the partition where you installed mongo (Example: "C:\data\db"). If you already have it installed, please run in mongoConsole db.users.remove({}) before executing the tests. (Executing the tests provide mock data)
+In order to run the tests you need to download and install mongoDB. You must create an empty folder called "data\db" in the root of the partition where you installed mongo (Example: "C:\data\db"). If you already have it installed, please run in mongoConsole db.users.remove({}) before executing the tests. (Executing the tests provide mock data)
+
+Run tests: 
+1. Comment the line of the application.properties file.
+2. To delete the database: launch from command line "mongod" and in other command line launch "mongo", after that write "db.users.remove({})".
+3. Launch the tests.
 
 # Authors
 
