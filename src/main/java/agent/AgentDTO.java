@@ -2,17 +2,19 @@ package agent;
 
 public class AgentDTO {
 
-    public String name;
-    public String location;
-    public String email;
-    public String ID;
-    public String kind;
-    public String kindcode;
+    private String name;
+    private String username;
+    private String location;
+    private String email;
+    private String ID;
+    private String kind;
+    private String kindcode;
 
     public AgentDTO() {}
 
     public AgentDTO(AgentInfo user) {
         this.name = user.getName();
+        this.username = user.getUsername();
         this.location = user.getLocation();
         this.email = user.getEmail();
         this.ID = user.getNIF();

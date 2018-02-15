@@ -1,20 +1,21 @@
-package controller;
+package controller.impl;
 
 import agent.AgentInfo;
+import controller.ChangePassword;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import repository.DBService;
+import DBmanagement.DBService;
 
 
 /**
  * Created by guille on 20/02/2017.
  */
 @Controller
-public class ChangePasswordController {
+public class ChangePasswordController implements controller.ChangePassword {
     private final DBService service;
 
     @Autowired
@@ -25,7 +26,6 @@ public class ChangePasswordController {
     @RequestMapping(value = "/changep", method = RequestMethod.GET)
     public String changeGet() {
         return "changep";
-
     }
 
     @RequestMapping(value = "/changep", method = RequestMethod.POST)

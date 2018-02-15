@@ -18,6 +18,7 @@ public class AgentInfo {
 
     private String password;
     private String name;
+    private String username;
     private String location;
     private String email;
     private String kind;
@@ -26,8 +27,9 @@ public class AgentInfo {
 
     private AgentInfo() {}
     
-    public AgentInfo(String name, String email, String kind,String NIF,String password) {
+    public AgentInfo(String name, String username, String email, String kind,String NIF,String password) {
         this.name = name;
+        this.username = username;
         this.email = email;
         this.kind = kind;
         this.NIF = NIF;
@@ -37,61 +39,49 @@ public class AgentInfo {
     }
 
     private void assignKindCode(String kind) {
-        if(kind.equals("person")){
-            this.kindcode = "1";
-        }else if(kind.equals("entity")){
-            this.kindcode = "2";
-        }
-        else if(kind.equals("sensor")){
-            this.kindcode ="3";
+        switch (kind){
+            case "person":
+                this.kindcode = "1";
+                break;
+            case "entity":
+                this.kindcode = "2";
+                break;
+            case "sensor":
+                this.kindcode ="3";
+                break;
         }
     }
 
-
-    public AgentInfo(String name, String email,
-                     String kind,String NIF,String password,String location) {
-        this(name,email,kind,NIF,password);
+    public AgentInfo(String name, String username, String email,
+                     String kind, String NIF, String password,String location) {
+        this(name,username,email,kind,NIF,password);
         this.location = location;
-
     }
     
     public AgentInfo(String[] data) {
-       this(data[0], data[1], data[2], data[3], data[4], data[5]);
+        this(data[0], data[1], data[2], data[3], data[4], data[5], data[6]);
     }
 
-    public String getPassword() {
-        return password;
-    }
+    public String getPassword() { return password; }
 
-    public void setPassword(String pw) {
-        this.password = pw;
-    }
+    public void setPassword(String pw) { this.password = pw; }
 
-    public String getName() {
-        return name;
-    }
+    public String getName() { return name; }
 
-    public String getEmail() {
-        return email;
-    }
+    public String getUsername() { return username; }
 
-    public String getLocation(){
-        return location;
-    }
+    public String getEmail() { return email; }
 
-    public String getId() {
-        return id;
-    }
+    public String getLocation(){ return location; }
 
-    public String getKind(){
-        return this.kind;
-    }
+    public String getId() { return id; }
 
-    public String getKindCode(){return kindcode; }
+    public String getKind(){  return this.kind; }
 
-    public String getNIF() {
-        return NIF;
-    }
+    public String getKindCode(){ return kindcode; }
+
+    public String getNIF() { return NIF; }
+
     @Override
     public String toString() {
         return "AgentInfo{" +
@@ -123,7 +113,6 @@ public class AgentInfo {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(NIF, password, name, location, email, kind, NIF, kindcode);
     }
 

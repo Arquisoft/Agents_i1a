@@ -27,11 +27,11 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.WebApplicationContext;
 
-import repository.DBService;
+import DBmanagement.DBService;
 
 @SuppressWarnings("deprecation")
 @RunWith(SpringJUnit4ClassRunner.class)
-@ComponentScan("repository")
+@ComponentScan("DBmanagement")
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
 @IntegrationTest({"server.port=0"})
@@ -63,18 +63,18 @@ public class FormControllerTest {
         ResponseEntity<String> response = template.getForEntity(base.toString(), String.class);
         mockMvc.perform(get("/login"))
                 .andExpect(status().isOk())
-                .andExpect(content().string(containsString("Email:")))
+                .andExpect(content().string(containsString("Username:")))
                 .andExpect(content().string(containsString("Password:")))
                 .andExpect(content().string(containsString("Kind:")));
     }
 
     @Test
     public void testLoginCorrect() throws Exception {
-        AgentInfo user = new AgentInfo("juan", "juan123@uniovi.es", "person","2","juan123");
+        AgentInfo user = new AgentInfo("juan", "juanjani","juan123@uniovi.es", "person","2","juan123");
         db.insertUser(user);
 
         mockMvc.perform(post("/login")
-                .param("login", "juan123@uniovi.es")
+                .param("login", "juanjani")
                 .param("password", "juan123")
                 .param("kind","person"))
                 .andExpect(status().isOk())

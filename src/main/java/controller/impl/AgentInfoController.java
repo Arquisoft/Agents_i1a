@@ -1,4 +1,4 @@
-package controller;
+package controller.impl;
 
 
 import agent.AgentDTO;
@@ -8,15 +8,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import repository.DBService;
+import DBmanagement.DBService;
 
 @RestController
-public class APIController {
+public class AgentInfoController implements controller.AgentInfo {
 
     private final DBService service;
 
     @Autowired
-    APIController(DBService service) {
+    AgentInfoController(DBService service) {
         this.service = service;
     }
 
@@ -26,7 +26,7 @@ public class APIController {
         // If the combination of email and password is correct, the data of the user is returned
         // If not, 404 NOT FOUND is returned
 
-        AgentInfo user = service.getAgent(login.getLogin(), login.getPassword(), login.getKind());
+        AgentInfo user = service.getAgent(login.getUsername(), login.getPassword(), login.getKind());
         if (user == null)
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         else {

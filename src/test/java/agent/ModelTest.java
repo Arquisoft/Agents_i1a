@@ -3,8 +3,6 @@ package agent;
 import static org.junit.Assert.*;
 
 import java.net.URL;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -20,7 +18,7 @@ import org.springframework.web.client.RestTemplate;
 
 @SuppressWarnings("deprecation")
 @RunWith(SpringJUnit4ClassRunner.class)
-@ComponentScan("repository")
+@ComponentScan("DBmanagement")
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
 @IntegrationTest({"server.port=0"})
@@ -44,28 +42,32 @@ public class ModelTest {
     public void testUserInfo() throws Exception {
         String password;
         String name;
+        String username;
         String email;
         String location;
         String kind;
         String NIF;
         name = "name";
+        username = "NameCaceres";
         password = "password";
         email = "mail@mail.com";
         location = "caceres";
         NIF = "10203040A";
         kind = "person";
 
-        AgentInfo user = new AgentInfo(name,email,kind,NIF,password);
-        AgentInfo user2 = new AgentInfo(name,email,kind,NIF,password,location);
+        AgentInfo user = new AgentInfo(name,username,email,kind,NIF,password);
+        AgentInfo user2 = new AgentInfo(name,username,email,kind,NIF,password,location);
 
         assertTrue(user.getPassword().equals(password));
         assertTrue(user.getName().equals(name));
+        assertTrue(user.getUsername().equals(username));
         assertTrue(user.getEmail().equals(email));
         assertTrue(user.getLocation().equals(""));
         assertTrue(user.getKindCode().equals("1"));
 
 
         assertTrue(user2.getName().equals(name));
+        assertTrue(user2.getUsername().equals(username));
         assertTrue(user2.getEmail().equals(email));
         assertTrue(user2.getLocation().equals(location));
 

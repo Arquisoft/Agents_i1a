@@ -27,11 +27,11 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.WebApplicationContext;
 
-import repository.DBService;
+import DBmanagement.DBService;
 
 @SuppressWarnings("deprecation")
 @RunWith(SpringJUnit4ClassRunner.class)
-@ComponentScan("repository")
+@ComponentScan("DBmanagement")
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
 @IntegrationTest({"server.port=0"})
@@ -61,18 +61,18 @@ public class APIControllerTest {
 
     @Test
     public void testDatabase() throws Exception {
-        AgentInfo user = new AgentInfo("paco", "paco123@uniovi.es", "person","3","paco123");
+        AgentInfo user = new AgentInfo("paco", "pacoperson", "paco123@uniovi.es", "person","3","paco123");
         db.insertUser(user);
-        AgentInfo userFromDB = db.getAgent("paco123@uniovi.es", "paco123","person");
-        assertThat(user.getEmail(), equalTo(userFromDB.getEmail()));
+        AgentInfo userFromDB = db.getAgent("pacoperson", "paco123","person");
+        assertThat(user.getUsername(), equalTo(userFromDB.getUsername()));
         assertThat(user.getPassword(), equalTo(userFromDB.getPassword()));
         assertThat(user.getKind(), equalTo(userFromDB.getKind()));
 
         boolean update = db.updateInfo(userFromDB.getId(), "paco123", "123paco");
-        userFromDB = db.getAgent("paco123@uniovi.es", "123paco","person");
+        userFromDB = db.getAgent("pacoperson", "123paco","person");
         assertThat(update, equalTo(true));
         assertThat(userFromDB, notNullValue());
-        assertThat("paco123@uniovi.es", equalTo(userFromDB.getEmail()));
+        assertThat("pacoperson", equalTo(userFromDB.getUsername()));
         assertThat("123paco", equalTo(userFromDB.getPassword()));
 
 
@@ -83,10 +83,10 @@ public class APIControllerTest {
 
     @Test
     public void postTestUser() throws Exception {
-        AgentInfo user = new AgentInfo("maria", "maria123@uniovi.es", "person","4","maria123");
+        AgentInfo user = new AgentInfo("maria", "merimeri", "maria123@uniovi.es", "person","4","maria123");
         db.insertUser(user);
         mockMvc.perform(post("/user")
-                .content("{ \"login\": \"maria123@uniovi.es\", \"password\": \"maria123\", \"kind\": \"person\"}")
+                .content("{ \"login\": \"merimeri\", \"password\": \"maria123\", \"kind\": \"person\"}")
                 .contentType(new MediaType(MediaType.APPLICATION_JSON.getType(),
                         MediaType.APPLICATION_JSON.getSubtype(),
                         Charset.forName("utf8"))))
@@ -102,7 +102,7 @@ public class APIControllerTest {
     @Test
     public void postTestNotFoundUser() throws Exception {
         mockMvc.perform(post("/user")
-                .content("{ \"login\": \"ma@il.com\", \"password\": \"nothepassword\"}")
+                .content("{ \"login\": \"jaajaaGarcia\", \"password\": \"nothepassword\"}")
                 .contentType(new MediaType(MediaType.APPLICATION_JSON.getType(),
                         MediaType.APPLICATION_JSON.getSubtype(),
                         Charset.forName("utf8"))))

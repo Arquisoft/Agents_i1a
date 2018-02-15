@@ -6,8 +6,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 @SpringBootApplication
-@EnableMongoRepositories("repository")
-@ComponentScan({"repository","services","controller", "agent"})
+@EnableMongoRepositories("DBmanagement")
+@ComponentScan({"DBmanagement","services","controller", "agent"})
 public class Application {
 
     public static void main(String[] args) {
