@@ -85,6 +85,7 @@ public class APIControllerTest {
     public void postTestUser() throws Exception {
         AgentInfo user = new AgentInfo("maria", "merimeri", "maria123@uniovi.es", "person","4","maria123");
         db.insertUser(user);
+        System.out.print(db.getAgent("merimeri", "maria123", "person").toString());
         mockMvc.perform(post("/user")
                 .content("{ \"login\": \"merimeri\", \"password\": \"maria123\", \"kind\": \"person\"}")
                 .contentType(new MediaType(MediaType.APPLICATION_JSON.getType(),

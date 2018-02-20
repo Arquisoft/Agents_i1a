@@ -36,14 +36,14 @@ public class FormController {
             return "usererror";
         else {
             model.addAttribute( "name", user.getName());
-            model.addAttribute( "name", user.getUsername());
+            model.addAttribute( "username", user.getUsername());
             model.addAttribute( "location", user.getLocation());
             model.addAttribute( "email", user.getEmail());
             model.addAttribute( "id", user.getNIF());
             model.addAttribute( "kind", user.getKind());
             model.addAttribute( "kindCode", user.getKindCode());
 
-            return "info";
+            return "getAgentInfo";
         }
 
     }
