@@ -23,6 +23,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.WebApplicationContext;
@@ -83,11 +85,11 @@ public class APIControllerTest {
 
     @Test
     public void postTestUser() throws Exception {
-        AgentInfo user = new AgentInfo("maria", "merimeri", "maria123@uniovi.es", "person","4","maria123");
+        AgentInfo user = new AgentInfo("maria", "merimeri", "maria123@uniovi.es"
+                , "person","4","maria123");
         db.insertUser(user);
-        System.out.print(db.getAgent("merimeri", "maria123", "person").toString());
         mockMvc.perform(post("/user")
-                .content("{ \"login\": \"merimeri\", \"password\": \"maria123\", \"kind\": \"person\"}")
+                .content("{ \"username\": \"merimeri\", \"password\": \"maria123\", \"kind\": \"person\"}")
                 .contentType(new MediaType(MediaType.APPLICATION_JSON.getType(),
                         MediaType.APPLICATION_JSON.getSubtype(),
                         Charset.forName("utf8"))))
@@ -95,9 +97,9 @@ public class APIControllerTest {
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andExpect(content().encoding("UTF-8"))
                 .andExpect(content().json("{\"name\":\"maria\"," +
-                        "\"location\":\"\",\"email\":\"maria123@uniovi.es\",\"kind\":\"person\", " +
-                        "\"kindcode\":\"1\" }")
+                        "\"username\":\"merimeri\",\"email\":maria123@uniovi.es,\"kind\":person}")
                 );
+
     }
 
     @Test
