@@ -23,10 +23,10 @@ public class AgentInfoController implements controller.AgentInfo {
     @RequestMapping(value = "/user", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<AgentDTO> user(@RequestBody AgentLogin login) {
-        // If the combination of email and password is correct, the data of the user is returned
+        // If the combination of id and password is correct, the data of the user is returned
         // If not, 404 NOT FOUND is returned
 
-        AgentInfo user = service.getAgent(login.getUsername(), login.getPassword(), login.getKind());
+        AgentInfo user = service.getAgent(login.getId(), login.getPassword(), login.getKind());
         if (user == null)
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         else {

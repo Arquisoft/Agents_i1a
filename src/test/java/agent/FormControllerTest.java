@@ -70,11 +70,11 @@ public class FormControllerTest {
 
     @Test
     public void testLoginCorrect() throws Exception {
-        AgentInfo user = new AgentInfo("juan", "juanjani","juan123@uniovi.es", "person","2","juan123");
+        AgentInfo user = new AgentInfo("juan","juan123@uniovi.es", "person","2","juan123");
         db.insertUser(user);
 
         mockMvc.perform(post("/login")
-                .param("login", "juanjani")
+                .param("login", "2")
                 .param("password", "juan123")
                 .param("kind","person"))
                 .andExpect(status().isOk())

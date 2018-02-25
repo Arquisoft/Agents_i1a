@@ -3,7 +3,6 @@ package agent;
 public class AgentDTO {
 
     private String name;
-    private String username;
     private String location;
     private String email;
     private String ID;
@@ -14,7 +13,6 @@ public class AgentDTO {
 
     public AgentDTO(AgentInfo user) {
         this.name = user.getName();
-        this.username = user.getUsername();
         this.location = user.getLocation();
         this.email = user.getEmail();
         this.ID = user.getNIF();

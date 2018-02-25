@@ -26,17 +26,16 @@ public class FormController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String loginPost(Model model, @RequestParam(value = "login") String username, @RequestParam(value = "password") String password,
+    public String loginPost(Model model, @RequestParam(value = "login") String id, @RequestParam(value = "password") String password,
                             @RequestParam(value = "kind") String kind) {
-        // If the combination of email and password is correct, the data of the user is returned
+        // If the combination of id and password is correct, the data of the user is returned
         // If not, 404 NOT FOUND is returned
-        AgentInfo user = service.getAgent(username, password, kind);
+        AgentInfo user = service.getAgent(id, password, kind);
 
         if (user == null)
             return "usererror";
         else {
             model.addAttribute( "name", user.getName());
-            model.addAttribute( "username", user.getUsername());
             model.addAttribute( "location", user.getLocation());
             model.addAttribute( "email", user.getEmail());
             model.addAttribute( "id", user.getNIF());

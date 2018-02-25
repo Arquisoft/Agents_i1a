@@ -74,11 +74,11 @@ public class ChangePasswordControllerTest {
     @Test
     public void testPostChangePasswordSuccess() throws Exception {
         // If this test fails, tru clearing the database
-        AgentInfo user = new AgentInfo("marta", "martuqui", "marta123@uniovi.es", "person","5","marta123");
+        AgentInfo user = new AgentInfo("marta", "marta123@uniovi.es", "person","5","marta123");
         db.insertUser(user);
 
         mockMvc.perform(post("/changep")
-                .param("username", "martuqui")
+                .param("NIF", "5")
                 .param("email", "marta123@uniovi.es")
                 .param("old", "marta123")
                 .param("password", "123marta")
@@ -90,9 +90,9 @@ public class ChangePasswordControllerTest {
                 .andExpect(content().string(containsString("passwform")))
                 .andExpect(content().string(containsString("result")))
                 .andExpect(content().string(containsString("Go back to")));
-        AgentInfo retrieved = db.getAgent("martuqui", "123marta","person");
+        AgentInfo retrieved = db.getAgent("5", "123marta","person");
         assertNotNull(retrieved);
-        assertTrue(retrieved.getUsername().equals("martuqui"));
+        assertTrue(retrieved.getNIF().equals("5"));
         assertTrue(!retrieved.getPassword().equals("marta123"));
         assertTrue(retrieved.getPassword().equals("123marta"));
 
@@ -127,11 +127,11 @@ public class ChangePasswordControllerTest {
 
     @Test
     public void testPostChangePasswordFail2() throws Exception {
-        AgentInfo user = new AgentInfo("lucia", "lalaland","lucia123@uniovi.es", "person","8","lucia123");
+        AgentInfo user = new AgentInfo("lucia", "lucia123@uniovi.es", "person","8","lucia123");
         db.insertUser(user);
 
         mockMvc.perform(post("/changep")
-                .param("username", "lalaland")
+                .param("NIF", "8")
                 .param("email", "lucia123@uniovi.es")
                 .param("old", "lucia1")
                 .param("password", "123lucia")
@@ -143,9 +143,9 @@ public class ChangePasswordControllerTest {
                 .andExpect(content().string(containsString("passwform")))
                 .andExpect(content().string(containsString("result")))
                 .andExpect(content().string(containsString("Go back to")));
-        AgentInfo retrieved = db.getAgent("lalaland", "lucia123","person");
+        AgentInfo retrieved = db.getAgent("8", "lucia123","person");
         assertNotNull(retrieved);
-        assertTrue(retrieved.getUsername().equals("lalaland"));
+        assertTrue(retrieved.getNIF().equals("8"));
         assertTrue(retrieved.getPassword().equals("lucia123"));
         assertTrue(!retrieved.getPassword().equals("123lucia"));
 

@@ -63,18 +63,18 @@ public class APIControllerTest {
 
     @Test
     public void testDatabase() throws Exception {
-        AgentInfo user = new AgentInfo("paco", "pacoperson", "paco123@uniovi.es", "person","3","paco123");
+        AgentInfo user = new AgentInfo("paco",  "paco123@uniovi.es", "person","3","paco123");
         db.insertUser(user);
         AgentInfo userFromDB = db.getAgent("pacoperson", "paco123","person");
-        assertThat(user.getUsername(), equalTo(userFromDB.getUsername()));
+        assertThat(user.getNIF(), equalTo(userFromDB.getNIF()));
         assertThat(user.getPassword(), equalTo(userFromDB.getPassword()));
         assertThat(user.getKind(), equalTo(userFromDB.getKind()));
 
         boolean update = db.updateInfo(userFromDB.getId(), "paco123", "123paco");
-        userFromDB = db.getAgent("pacoperson", "123paco","person");
+        userFromDB = db.getAgent("3", "123paco","person");
         assertThat(update, equalTo(true));
         assertThat(userFromDB, notNullValue());
-        assertThat("pacoperson", equalTo(userFromDB.getUsername()));
+        assertThat("3", equalTo(userFromDB.getNIF()));
         assertThat("123paco", equalTo(userFromDB.getPassword()));
 
 
@@ -85,11 +85,11 @@ public class APIControllerTest {
 
     @Test
     public void postTestUser() throws Exception {
-        AgentInfo user = new AgentInfo("maria", "merimeri", "maria123@uniovi.es"
+        AgentInfo user = new AgentInfo("maria", "maria123@uniovi.es"
                 , "person","4","maria123");
         db.insertUser(user);
         mockMvc.perform(post("/user")
-                .content("{ \"username\": \"merimeri\", \"password\": \"maria123\", \"kind\": \"person\"}")
+                .content("{ \"username\":\"4\"\"password\": \"maria123\", \"kind\": \"person\"}")
                 .contentType(new MediaType(MediaType.APPLICATION_JSON.getType(),
                         MediaType.APPLICATION_JSON.getSubtype(),
                         Charset.forName("utf8"))))
@@ -97,7 +97,7 @@ public class APIControllerTest {
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andExpect(content().encoding("UTF-8"))
                 .andExpect(content().json("{\"name\":\"maria\"," +
-                        "\"username\":\"merimeri\",\"email\":maria123@uniovi.es,\"kind\":person}")
+                        "\"username\":\"4\"\"email\":maria123@uniovi.es,\"kind\":person}")
                 );
 
     }

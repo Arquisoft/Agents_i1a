@@ -18,7 +18,6 @@ public class AgentInfo {
 
     private String password;
     private String name;
-    private String username;
     private String location;
     private String email;
     private String kind;
@@ -27,9 +26,8 @@ public class AgentInfo {
 
     private AgentInfo() {}
     
-    public AgentInfo(String name, String username, String email, String kind,String NIF,String password) {
+    public AgentInfo(String name, String email, String kind,String NIF,String password) {
         this.name = name;
-        this.username = username;
         this.email = email;
         this.kind = kind;
         this.NIF = NIF;
@@ -52,14 +50,13 @@ public class AgentInfo {
         }
     }
 
-    public AgentInfo(String name, String username, String email,
-                     String kind, String NIF, String password,String location) {
-        this(name,username,email,kind,NIF,password);
+    public AgentInfo(String name, String email, String kind, String NIF, String password,String location) {
+        this(name,email,kind,NIF,password);
         this.location = location;
     }
     
     public AgentInfo(String[] data) {
-        this(data[0], data[1], data[2], data[3], data[4], data[5], data[6]);
+        this(data[0], data[1], data[3], data[4], data[5], data[6]);
     }
 
     public String getPassword() { return password; }
@@ -67,8 +64,6 @@ public class AgentInfo {
     public void setPassword(String pw) { this.password = pw; }
 
     public String getName() { return name; }
-
-    public String getUsername() { return username; }
 
     public String getEmail() { return email; }
 
@@ -88,7 +83,6 @@ public class AgentInfo {
                 "id='" + id + '\'' +
                 ", password='" + password + '\'' +
                 ", name='" + name + '\'' +
-                ", username='" + username + '\'' +
                 ", location='" + location + '\'' +
                 ", email='" + email + '\'' +
                 ", kind='" + kind + '\'' +
@@ -105,7 +99,6 @@ public class AgentInfo {
         return Objects.equals(id, agentInfo.id) &&
                 Objects.equals(password, agentInfo.password) &&
                 Objects.equals(name, agentInfo.name) &&
-                Objects.equals(username, agentInfo.username) &&
                 Objects.equals(location, agentInfo.location) &&
                 Objects.equals(email, agentInfo.email) &&
                 Objects.equals(kind, agentInfo.kind) &&
@@ -116,6 +109,6 @@ public class AgentInfo {
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, password, name, username, location, email, kind, NIF, kindcode);
+        return Objects.hash(id, password, name, location, email, kind, NIF, kindcode);
     }
 }
