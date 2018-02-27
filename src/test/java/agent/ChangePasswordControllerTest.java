@@ -92,7 +92,7 @@ public class ChangePasswordControllerTest {
                 .andExpect(content().string(containsString("Go back to")));
         AgentInfo retrieved = db.getAgent("5", "123marta","person");
         assertNotNull(retrieved);
-        assertTrue(retrieved.getNIF().equals("5"));
+        assertTrue(retrieved.getId().equals("5"));
         assertTrue(!retrieved.getPassword().equals("marta123"));
         assertTrue(retrieved.getPassword().equals("123marta"));
 
@@ -145,7 +145,7 @@ public class ChangePasswordControllerTest {
                 .andExpect(content().string(containsString("Go back to")));
         AgentInfo retrieved = db.getAgent("8", "lucia123","person");
         assertNotNull(retrieved);
-        assertTrue(retrieved.getNIF().equals("8"));
+        assertTrue(retrieved.getId().equals("8"));
         assertTrue(retrieved.getPassword().equals("lucia123"));
         assertTrue(!retrieved.getPassword().equals("123lucia"));
 

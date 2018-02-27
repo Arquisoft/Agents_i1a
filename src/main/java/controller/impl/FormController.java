@@ -38,7 +38,7 @@ public class FormController {
             model.addAttribute( "name", user.getName());
             model.addAttribute( "location", user.getLocation());
             model.addAttribute( "email", user.getEmail());
-            model.addAttribute( "id", user.getNIF());
+            model.addAttribute( "id", user.getId());
             model.addAttribute( "kind", user.getKind());
             model.addAttribute( "kindCode", user.getKindCode());
 

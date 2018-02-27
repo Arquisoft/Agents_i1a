@@ -60,14 +60,14 @@ public class ModelTest {
 
         assertTrue(user.getPassword().equals(password));
         assertTrue(user.getName().equals(name));
-        assertTrue(user.getNIF().equals(NIF));
+        assertTrue(user.getId().equals(NIF));
         assertTrue(user.getEmail().equals(email));
         assertTrue(user.getLocation().equals(""));
         assertTrue(user.getKindCode().equals("1"));
 
 
         assertTrue(user2.getName().equals(name));
-        assertTrue(user2.getNIF().equals(NIF));
+        assertTrue(user2.getId().equals(NIF));
         assertTrue(user2.getEmail().equals(email));
         assertTrue(user2.getLocation().equals(location));
 

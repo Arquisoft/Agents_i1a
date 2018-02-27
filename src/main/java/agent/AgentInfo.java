@@ -13,24 +13,23 @@ public class AgentInfo {
     // Log
     private static final Logger LOG = LoggerFactory.getLogger(AgentInfo.class);
 
-    @Id
-    private String id;
 
     private String password;
     private String name;
     private String location;
     private String email;
     private String kind;
-    private String NIF;
+    @Id
+    private String id;
     private String kindcode;
 
     private AgentInfo() {}
     
-    public AgentInfo(String name, String email, String kind,String NIF,String password) {
+    public AgentInfo(String name, String email, String kind,String id,String password) {
         this.name = name;
         this.email = email;
         this.kind = kind;
-        this.NIF = NIF;
+        this.id = id;
         this.password = password;
         this.location = "";
         assignKindCode(kind);
@@ -50,8 +49,8 @@ public class AgentInfo {
         }
     }
 
-    public AgentInfo(String name, String email, String kind, String NIF, String password,String location) {
-        this(name,email,kind,NIF,password);
+    public AgentInfo(String name, String email, String kind, String id, String password,String location) {
+        this(name,email,kind,id,password);
         this.location = location;
     }
     
@@ -75,40 +74,36 @@ public class AgentInfo {
 
     public String getKindCode(){ return kindcode; }
 
-    public String getNIF() { return NIF; }
-
-    @Override
-    public String toString() {
-        return "AgentInfo{" +
-                "id='" + id + '\'' +
-                ", password='" + password + '\'' +
-                ", name='" + name + '\'' +
-                ", location='" + location + '\'' +
-                ", email='" + email + '\'' +
-                ", kind='" + kind + '\'' +
-                ", NIF='" + NIF + '\'' +
-                ", kindcode='" + kindcode + '\'' +
-                '}';
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AgentInfo agentInfo = (AgentInfo) o;
-        return Objects.equals(id, agentInfo.id) &&
-                Objects.equals(password, agentInfo.password) &&
+        return Objects.equals(password, agentInfo.password) &&
                 Objects.equals(name, agentInfo.name) &&
                 Objects.equals(location, agentInfo.location) &&
                 Objects.equals(email, agentInfo.email) &&
                 Objects.equals(kind, agentInfo.kind) &&
-                Objects.equals(NIF, agentInfo.NIF) &&
+                Objects.equals(id, agentInfo.id) &&
                 Objects.equals(kindcode, agentInfo.kindcode);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, password, name, location, email, kind, NIF, kindcode);
+        return Objects.hash(password, name, location, email, kind, id, kindcode);
+    }
+
+    @Override
+    public String toString() {
+        return "AgentInfo{" +
+                "password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", location='" + location + '\'' +
+                ", email='" + email + '\'' +
+                ", kind='" + kind + '\'' +
+                ", id='" + id + '\'' +
+                ", kindcode='" + kindcode + '\'' +
+                '}';
     }
 }
