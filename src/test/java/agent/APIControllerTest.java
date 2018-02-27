@@ -65,8 +65,8 @@ public class APIControllerTest {
     public void testDatabase() throws Exception {
         AgentInfo user = new AgentInfo("paco",  "paco123@uniovi.es", "person","3","paco123");
         db.insertUser(user);
-        AgentInfo userFromDB = db.getAgent("pacoperson", "paco123","person");
-        assertThat(user.getNIF(), equalTo(userFromDB.getNIF()));
+        AgentInfo userFromDB = db.getAgent("3", "paco123","person");
+        assertThat(user.getId(), equalTo(userFromDB.getId()));
         assertThat(user.getPassword(), equalTo(userFromDB.getPassword()));
         assertThat(user.getKind(), equalTo(userFromDB.getKind()));
 
@@ -74,7 +74,7 @@ public class APIControllerTest {
         userFromDB = db.getAgent("3", "123paco","person");
         assertThat(update, equalTo(true));
         assertThat(userFromDB, notNullValue());
-        assertThat("3", equalTo(userFromDB.getNIF()));
+        assertThat("3", equalTo(userFromDB.getId()));
         assertThat("123paco", equalTo(userFromDB.getPassword()));
 
 
