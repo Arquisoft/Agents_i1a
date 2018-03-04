@@ -23,12 +23,12 @@ public class ChangePasswordController implements controller.ChangePassword {
         this.service = service;
     }
 
-    @RequestMapping(value = "/changep", method = RequestMethod.GET)
+    @RequestMapping(value = "/changePassword", method = RequestMethod.GET)
     public String changeGet() {
         return "changePassword";
     }
 
-    @RequestMapping(value = "/changep", method = RequestMethod.POST)
+    @RequestMapping(value = "/changePassword", method = RequestMethod.POST)
     public String changePost(Model model
             , @RequestParam(value = "user") String username
             , @RequestParam(value = "kind") String kind
