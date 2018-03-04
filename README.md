@@ -5,13 +5,18 @@
 
 # agents_i1b
 
+Run tests in local: 
 
 In order to run the tests you need to download and install mongoDB. You must create an empty folder called "data\db" in the root of the partition where you installed mongo (Example: "C:\data\db"). If you already have it installed, please run in mongoConsole db.users.remove({}) before executing the tests. (Executing the tests provide mock data)
-
-Run tests: 
 1. Comment the line of the application.properties file.
-2. To delete the database: launch from command line "mongod" and in other command line launch "mongo", after that write "db.users.remove({})".
-3. Launch the tests.
+2. Uncomment "@Document(collection= "users")" in AgentInfo and comment the next line.
+3. To delete the database: launch from command line "mongod" and in other command line launch "mongo", after that write "db.users.remove({})".
+4. Launch the tests.
+
+Run tests in remote:
+
+1. Uncomment "@Document(collection= "users")" in AgentInfo and comment the next line.
+2. Uncomment the line of the application.properties file.
 
 # Authors
 
