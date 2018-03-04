@@ -15,7 +15,7 @@ In order to run the tests you need to download and install mongoDB. You must cre
 
 Run tests in remote:
 
-1. Uncomment "@Document(collection= "users")" in AgentInfo and comment the next line.
+1. Comment "@Document(collection= "users")" in AgentInfo and uncomment the next line.
 2. Uncomment the line of the application.properties file.
 
 # Authors
