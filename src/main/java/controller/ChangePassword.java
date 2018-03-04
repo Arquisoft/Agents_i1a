@@ -7,7 +7,7 @@ public interface ChangePassword {
 
     String changeGet();
     String changePost(Model model
-            , @RequestParam(value = "email") String email
+            , @RequestParam(value = "user") String email
             , @RequestParam(value = "kind") String kind
             , @RequestParam(value = "old") String old
             , @RequestParam(value = "password") String password

@@ -39,7 +39,10 @@ public class FormController {
             model.addAttribute( "location", user.getLocation());
             model.addAttribute( "email", user.getEmail());
             model.addAttribute( "id", user.getId());
-            model.addAttribute( "kind", user.getKind());
+            model.addAttribute( "kindCode", user.getKind());
+            if (user.getKind() == 1) model.addAttribute( "kind", "person");
+            else if (user.getKind() == 2) model.addAttribute( "kind", "entity");
+            else if (user.getKind() == 3) model.addAttribute( "kind", "sensor");
 
             return "getAgentInfo";
         }

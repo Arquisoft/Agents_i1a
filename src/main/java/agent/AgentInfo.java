@@ -7,8 +7,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Objects;
 
-//@Document(collection= "users")
-@Document(collection= "loader_i1a_collection") //Esta coleccion se usa para la bd remota
+@Document(collection= "tests")
+//@Document(collection= "loader_i1a_collection") //Esta coleccion se usa para la bd remota
 public class AgentInfo {
 
     // Log

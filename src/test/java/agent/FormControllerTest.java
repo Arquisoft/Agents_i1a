@@ -80,7 +80,8 @@ public class FormControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(model().attribute("name", equalTo("juan")))
                 .andExpect(model().attribute("email", equalTo("juan123@uniovi.es")))
-                .andExpect(model().attribute("kind",equalTo(1)));
+                .andExpect(model().attribute("kind",equalTo("person")))
+                .andExpect(model().attribute("kindCode",equalTo(1)));
     }
 
     @Test

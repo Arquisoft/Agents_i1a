@@ -25,18 +25,18 @@ public class ChangePasswordController implements controller.ChangePassword {
 
     @RequestMapping(value = "/changep", method = RequestMethod.GET)
     public String changeGet() {
-        return "changep";
+        return "changePassword";
     }
 
     @RequestMapping(value = "/changep", method = RequestMethod.POST)
     public String changePost(Model model
-            , @RequestParam(value = "email") String email
+            , @RequestParam(value = "user") String username
             , @RequestParam(value = "kind") String kind
             , @RequestParam(value = "old") String old
             , @RequestParam(value = "password") String password
             , @RequestParam(value = "password2") String password2)
         {
-        AgentInfo user = service.getAgent(email, old, Integer.parseInt(kind));
+        AgentInfo user = service.getAgent(username, old, Integer.parseInt(kind));
         if (user == null) {
             model.addAttribute("bg", "background: #F00;");
             model.addAttribute("result", "The password is incorrect");
@@ -51,7 +51,7 @@ public class ChangePasswordController implements controller.ChangePassword {
             model.addAttribute("result", "The password has been changed");
         }
 
-        return "changep";
+        return "changePassword";
 
     }
 

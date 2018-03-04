@@ -78,8 +78,7 @@ public class ChangePasswordControllerTest {
         db.insertUser(user);
 
         mockMvc.perform(post("/changep")
-                .param("NIF", "5")
-                .param("email", "marta123@uniovi.es")
+                .param("user", "5")
                 .param("old", "marta123")
                 .param("password", "123marta")
                 .param("password2", "123marta")
@@ -100,12 +99,11 @@ public class ChangePasswordControllerTest {
 
     @Test
     public void testPostChangePasswordFail1() throws Exception {
-        AgentInfo user = new AgentInfo("julia", "julia123@uniovi.es", "123julia", "","6",1);
+        AgentInfo user = new AgentInfo("julia", "julia123@uniovi.es", "julia123", "","6",1);
         db.insertUser(user);
 
         mockMvc.perform(post("/changep")
-                .param("username", "julip")
-                .param("email", "julia123@uniovi.es")
+                .param("user", "6")
                 .param("old", "julia123")
                 .param("password", "123julia")
                 .param("password2", "12julia")
@@ -116,9 +114,9 @@ public class ChangePasswordControllerTest {
                 .andExpect(content().string(containsString("passwform")))
                 .andExpect(content().string(containsString("result")))
                 .andExpect(content().string(containsString("Go back to")));
-        AgentInfo retrieved = db.getAgent("julip", "julia123",1);
+        AgentInfo retrieved = db.getAgent("6", "julia123",1);
         assertNotNull(retrieved);
-        assertTrue(retrieved.getEmail().equals("julip"));
+        assertTrue(retrieved.getEmail().equals("julia123@uniovi.es"));
         assertTrue(retrieved.getPassword().equals("julia123"));
         assertTrue(!retrieved.getPassword().equals("123julia"));
         assertTrue(!retrieved.getPassword().equals("12julia"));
@@ -131,8 +129,7 @@ public class ChangePasswordControllerTest {
         db.insertUser(user);
 
         mockMvc.perform(post("/changep")
-                .param("NIF", "8")
-                .param("email", "lucia123@uniovi.es")
+                .param("user", "8")
                 .param("old", "lucia1")
                 .param("password", "123lucia")
                 .param("password2", "123lucia")
