@@ -18,7 +18,7 @@ public class DBServiceClass implements DBService {
 
     @Override
     public boolean updateInfo(String id, String oldPass, String newPass) {
-        AgentInfo user = repository.findOne(id);
+        AgentInfo user = repository.findById(id);
         if (user.getPassword().equals(oldPass)) {
             user.setPassword(newPass);
             repository.save(user);
@@ -28,10 +28,10 @@ public class DBServiceClass implements DBService {
     }
 
     @Override
-    public AgentInfo getAgent(String id, String password, String kind) {
+    public AgentInfo getAgent(String id, String password, int kind) {
         AgentInfo user = repository.findById(id);
 
-        if (user != null && user.getPassword().equals(password) && user.getKind().equals(kind))
+        if (user != null && user.getPassword().equals(password) && user.getKind() == kind)
             return user;
         else
             return null;

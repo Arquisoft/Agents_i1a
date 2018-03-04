@@ -70,17 +70,17 @@ public class FormControllerTest {
 
     @Test
     public void testLoginCorrect() throws Exception {
-        AgentInfo user = new AgentInfo("juan","juan123@uniovi.es", "person","2","juan123");
+        AgentInfo user = new AgentInfo("juan","juan123@uniovi.es", "juan123","2",1);
         db.insertUser(user);
 
         mockMvc.perform(post("/login")
                 .param("login", "2")
                 .param("password", "juan123")
-                .param("kind","person"))
+                .param("kind","1"))
                 .andExpect(status().isOk())
                 .andExpect(model().attribute("name", equalTo("juan")))
                 .andExpect(model().attribute("email", equalTo("juan123@uniovi.es")))
-                .andExpect(model().attribute("kind",equalTo("person")));
+                .andExpect(model().attribute("kind",equalTo(1)));
     }
 
     @Test
@@ -88,7 +88,7 @@ public class FormControllerTest {
         mockMvc.perform(post("/login")
                 .param("login", "inco@rre.ct")
                 .param("password", "user")
-                .param("kind","person"))
+                .param("kind","1"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Invalid login details.")));
     }

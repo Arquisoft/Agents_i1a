@@ -6,19 +6,17 @@ public class AgentDTO {
     private String location;
     private String email;
     private String id;
-    private String kind;
-    private String kindcode;
+    private int kind;
 
 
     public AgentDTO() {}
 
     public AgentDTO(AgentInfo user) {
         this.name = user.getName();
-        this.location = user.getLocation();
         this.email = user.getEmail();
+        this.location = user.getLocation();
         this.id = user.getId();
         this.kind = user.getKind();
-        this.kindcode = user.getKindCode();
     }
 
     public String getName() {
@@ -53,19 +51,12 @@ public class AgentDTO {
         this.id = id;
     }
 
-    public String getKind() {
+    public int getKind() {
         return kind;
     }
 
-    public void setKind(String kind) {
+    public void setKind(int kind) {
         this.kind = kind;
     }
 
-    public String getKindcode() {
-        return kindcode;
-    }
-
-    public void setKindcode(String kindcode) {
-        this.kindcode = kindcode;
-    }
 }

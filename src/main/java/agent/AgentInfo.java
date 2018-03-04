@@ -7,55 +7,44 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Objects;
 
-@Document(collection= "users")
+//@Document(collection= "users")
+@Document(collection= "loader_i1a_collection") //Esta coleccion se usa para la bd remota
 public class AgentInfo {
 
     // Log
     private static final Logger LOG = LoggerFactory.getLogger(AgentInfo.class);
 
-
-    private String password;
-    private String name;
-    private String location;
-    private String email;
-    private String kind;
     @Id
+    private String idautogenerado;
+
+    public String getIdautogenerado() { return idautogenerado;}
+
+    private String name;
+    private String email;
+    private String password;
+    private String location;
     private String id;
-    private String kindcode;
+    private int kind;
 
     private AgentInfo() {}
     
-    public AgentInfo(String name, String email, String kind,String id,String password) {
+    public AgentInfo(String name, String email, String password,String id, int kind) {
         this.name = name;
         this.email = email;
         this.kind = kind;
         this.id = id;
         this.password = password;
         this.location = "";
-        assignKindCode(kind);
+        this.kind = kind;
     }
 
-    private void assignKindCode(String kind) {
-        switch (kind){
-            case "person":
-                this.kindcode = "1";
-                break;
-            case "entity":
-                this.kindcode = "2";
-                break;
-            case "sensor":
-                this.kindcode ="3";
-                break;
-        }
-    }
-
-    public AgentInfo(String name, String email, String kind, String id, String password,String location) {
-        this(name,email,kind,id,password);
+    public AgentInfo(String name, String email, String password, String location, String id, int kind) {
+        this(name,email,password, id, kind);
         this.location = location;
     }
     
     public AgentInfo(String[] data) {
-        this(data[0], data[1], data[3], data[4], data[5], data[6]);
+        this(data[0], data[1], data[3], data[4], data[5], Integer.parseInt(data[6]));
     }
 
     public String getPassword() { return password; }
@@ -70,40 +59,39 @@ public class AgentInfo {
 
     public String getId() { return id; }
 
-    public String getKind(){  return this.kind; }
-
-    public String getKindCode(){ return kindcode; }
+    @Override
+    public String toString() {
+        return "AgentInfo{" +
+                "idautogenerado='" + idautogenerado + '\'' +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", location='" + location + '\'' +
+                ", id='" + id + '\'' +
+                ", kind=" + kind +
+                '}';
+    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AgentInfo agentInfo = (AgentInfo) o;
-        return Objects.equals(password, agentInfo.password) &&
+        return kind == agentInfo.kind &&
+                Objects.equals(idautogenerado, agentInfo.idautogenerado) &&
                 Objects.equals(name, agentInfo.name) &&
-                Objects.equals(location, agentInfo.location) &&
                 Objects.equals(email, agentInfo.email) &&
-                Objects.equals(kind, agentInfo.kind) &&
-                Objects.equals(id, agentInfo.id) &&
-                Objects.equals(kindcode, agentInfo.kindcode);
+                Objects.equals(password, agentInfo.password) &&
+                Objects.equals(location, agentInfo.location) &&
+                Objects.equals(id, agentInfo.id);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(password, name, location, email, kind, id, kindcode);
+        return Objects.hash(idautogenerado, name, email, password, location, id, kind);
     }
 
-    @Override
-    public String toString() {
-        return "AgentInfo{" +
-                "password='" + password + '\'' +
-                ", name='" + name + '\'' +
-                ", location='" + location + '\'' +
-                ", email='" + email + '\'' +
-                ", kind='" + kind + '\'' +
-                ", id='" + id + '\'' +
-                ", kindcode='" + kindcode + '\'' +
-                '}';
-    }
+    public int getKind(){  return this.kind; }
+
 }

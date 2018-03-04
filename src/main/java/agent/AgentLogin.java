@@ -2,7 +2,8 @@ package agent;
 
 public class AgentLogin {
 
-    private String id, password, kind;
+    private String id, password;
+    private int kind;
 
     public String getId() { return id; }
 
@@ -18,8 +19,8 @@ public class AgentLogin {
         this.password = password;
     }
 
-    public String getKind() { return kind; }
+    public int getKind() { return kind; }
 
-    public void setKind(String kind) { this.kind = kind;}
+    public void setKind(int kind) { this.kind = kind;}
     
 }

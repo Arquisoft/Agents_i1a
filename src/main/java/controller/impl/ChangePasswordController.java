@@ -36,7 +36,7 @@ public class ChangePasswordController implements controller.ChangePassword {
             , @RequestParam(value = "password") String password
             , @RequestParam(value = "password2") String password2)
         {
-        AgentInfo user = service.getAgent(email, old, kind);
+        AgentInfo user = service.getAgent(email, old, Integer.parseInt(kind));
         if (user == null) {
             model.addAttribute("bg", "background: #F00;");
             model.addAttribute("result", "The password is incorrect");

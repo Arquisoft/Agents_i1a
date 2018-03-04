@@ -63,15 +63,15 @@ public class APIControllerTest {
 
     @Test
     public void testDatabase() throws Exception {
-        AgentInfo user = new AgentInfo("paco",  "paco123@uniovi.es", "person","3","paco123");
+        AgentInfo user = new AgentInfo("paco",  "paco123@uniovi.es", "paco123","3",1);
         db.insertUser(user);
-        AgentInfo userFromDB = db.getAgent("3", "paco123","person");
+        AgentInfo userFromDB = db.getAgent("3", "paco123",1);
         assertThat(user.getId(), equalTo(userFromDB.getId()));
         assertThat(user.getPassword(), equalTo(userFromDB.getPassword()));
         assertThat(user.getKind(), equalTo(userFromDB.getKind()));
 
         boolean update = db.updateInfo(userFromDB.getId(), "paco123", "123paco");
-        userFromDB = db.getAgent("3", "123paco","person");
+        userFromDB = db.getAgent("3", "123paco",1);
         assertThat(update, equalTo(true));
         assertThat(userFromDB, notNullValue());
         assertThat("3", equalTo(userFromDB.getId()));
@@ -86,10 +86,10 @@ public class APIControllerTest {
     @Test
     public void postTestUser() throws Exception {
         AgentInfo user = new AgentInfo("maria", "maria123@uniovi.es"
-                , "person","4","maria123");
+                , "maria123","4",1);
         db.insertUser(user);
         mockMvc.perform(post("/user")
-                .content("{ \"username\":\"4\"\"password\": \"maria123\", \"kind\": \"person\"}")
+                .content("{ \"id\":\"4\",\"password\": \"maria123\", \"kind\": \"1\"}")
                 .contentType(new MediaType(MediaType.APPLICATION_JSON.getType(),
                         MediaType.APPLICATION_JSON.getSubtype(),
                         Charset.forName("utf8"))))
@@ -97,7 +97,7 @@ public class APIControllerTest {
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andExpect(content().encoding("UTF-8"))
                 .andExpect(content().json("{\"name\":\"maria\"," +
-                        "\"username\":\"4\"\"email\":maria123@uniovi.es,\"kind\":person}")
+                        "\"id\":\"4\",\"email\":maria123@uniovi.es,\"kind\":1}")
                 );
 
     }
@@ -105,7 +105,7 @@ public class APIControllerTest {
     @Test
     public void postTestNotFoundUser() throws Exception {
         mockMvc.perform(post("/user")
-                .content("{ \"login\": \"jaajaaGarcia\", \"password\": \"nothepassword\"}")
+                .content("{ \"id\": \"jaajaaGarcia\", \"password\": \"nothepassword\"}")
                 .contentType(new MediaType(MediaType.APPLICATION_JSON.getType(),
                         MediaType.APPLICATION_JSON.getSubtype(),
                         Charset.forName("utf8"))))

@@ -45,7 +45,7 @@ public class ModelTest {
         String username;
         String email;
         String location;
-        String kind;
+        int kind;
         String NIF;
         name = "name";
         username = "NameCaceres";
@@ -53,21 +53,21 @@ public class ModelTest {
         email = "mail@mail.com";
         location = "caceres";
         NIF = "10203040A";
-        kind = "person";
+        kind = 1;
 
-        AgentInfo user = new AgentInfo(name,email,kind,NIF,password);
-        AgentInfo user2 = new AgentInfo(name,email,kind,NIF,password,location);
+        AgentInfo user = new AgentInfo(name,email,password,username, kind);
+        AgentInfo user2 = new AgentInfo(name,email,password, location, username, kind);
 
         assertTrue(user.getPassword().equals(password));
         assertTrue(user.getName().equals(name));
-        assertTrue(user.getId().equals(NIF));
+        assertTrue(user.getId().equals(username));
         assertTrue(user.getEmail().equals(email));
         assertTrue(user.getLocation().equals(""));
-        assertTrue(user.getKindCode().equals("1"));
+        assertTrue(user.getKind() == 1);
 
 
         assertTrue(user2.getName().equals(name));
-        assertTrue(user2.getId().equals(NIF));
+        assertTrue(user2.getId().equals(username));
         assertTrue(user2.getEmail().equals(email));
         assertTrue(user2.getLocation().equals(location));
 

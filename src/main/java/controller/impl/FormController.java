@@ -30,7 +30,7 @@ public class FormController {
                             @RequestParam(value = "kind") String kind) {
         // If the combination of id and password is correct, the data of the user is returned
         // If not, 404 NOT FOUND is returned
-        AgentInfo user = service.getAgent(id, password, kind);
+        AgentInfo user = service.getAgent(id, password, Integer.parseInt(kind));
 
         if (user == null)
             return "usererror";
@@ -40,7 +40,6 @@ public class FormController {
             model.addAttribute( "email", user.getEmail());
             model.addAttribute( "id", user.getId());
             model.addAttribute( "kind", user.getKind());
-            model.addAttribute( "kindCode", user.getKindCode());
 
             return "getAgentInfo";
         }
