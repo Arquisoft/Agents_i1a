@@ -65,7 +65,7 @@ public class ChangePasswordControllerTest {
     @Test
     public void testGetChangePasswordPage() throws Exception {
         ResponseEntity<String> response = template.getForEntity(base.toString(), String.class);
-        mockMvc.perform(get("/changep"))
+        mockMvc.perform(get("/changePassword"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("passwform")))
                 .andExpect(content().string(containsString("Go back to")));
@@ -77,7 +77,7 @@ public class ChangePasswordControllerTest {
         AgentInfo user = new AgentInfo("marta", "marta123@uniovi.es", "marta123","5",1);
         db.insertUser(user);
 
-        mockMvc.perform(post("/changep")
+        mockMvc.perform(post("/changePassword")
                 .param("user", "5")
                 .param("old", "marta123")
                 .param("password", "123marta")
@@ -102,7 +102,7 @@ public class ChangePasswordControllerTest {
         AgentInfo user = new AgentInfo("julia", "julia123@uniovi.es", "julia123", "","6",1);
         db.insertUser(user);
 
-        mockMvc.perform(post("/changep")
+        mockMvc.perform(post("/changePassword")
                 .param("user", "6")
                 .param("old", "julia123")
                 .param("password", "123julia")
@@ -128,7 +128,7 @@ public class ChangePasswordControllerTest {
         AgentInfo user = new AgentInfo("lucia", "lucia123@uniovi.es", "lucia123","8",1);
         db.insertUser(user);
 
-        mockMvc.perform(post("/changep")
+        mockMvc.perform(post("/changePassword")
                 .param("user", "8")
                 .param("old", "lucia1")
                 .param("password", "123lucia")
