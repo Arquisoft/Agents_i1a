@@ -41,36 +41,45 @@ public class ModelTest {
     public void testUserInfo() throws Exception {
         String password;
         String name;
-        String username;
         String email;
         String location;
+        String NIF;
         int kind;
-        // String NIF;
+
         name = "name";
-        username = "NameCaceres";
         password = "password";
         email = "mail@mail.com";
         location = "caceres";
-        // NIF = "10203040A";
+        NIF = "10203040A";
         kind = 1;
 
-        AgentInfo user = new AgentInfo(name,email,password,username, kind);
-        AgentInfo user2 = new AgentInfo(name,email,password, location, username, kind);
+        AgentInfo user = new AgentInfo(name,email,password,NIF,kind);
+        AgentInfo user2 = new AgentInfo(name,email,password,location,NIF,kind);
 
         assertTrue(user.getPassword().equals(password));
         assertTrue(user.getName().equals(name));
-        assertTrue(user.getId().equals(username));
+        assertTrue(user.getId().equals(NIF));
         assertTrue(user.getEmail().equals(email));
         assertTrue(user.getLocation().equals(""));
+        assertTrue(user.getIdautogenerado() == null);
         assertTrue(user.getKind() == 1);
 
-
         assertTrue(user2.getName().equals(name));
-        assertTrue(user2.getId().equals(username));
+        assertTrue(user2.getId().equals(NIF));
         assertTrue(user2.getEmail().equals(email));
         assertTrue(user2.getLocation().equals(location));
+        assertTrue(user2.getIdautogenerado() == null);
 
+        assertEquals("AgentInfo{idautogenerado='null', name='name'" +
+                ", email='mail@mail.com', password='password', location='', id='10203040A'" +
+                ", kind=1}", user.toString());
 
+        assertEquals("AgentInfo{idautogenerado='null', name='name'" +
+                ", email='mail@mail.com', password='password', location='caceres', id='10203040A'" +
+                ", kind=1}", user2.toString());
+
+        assertFalse(user.hashCode() == user2.hashCode());
+        assertFalse(user.equals(user2));
     }
 
     @Test
