@@ -57,7 +57,7 @@ public class APIControllerTest {
 
     @Test
     public void testDatabase() throws Exception {
-        AgentInfo user = new AgentInfo("paco",  "paco123@uniovi.es", "paco123", "Oviedo", "3",2);
+        AgentInfo user = new AgentInfo("paco",  "paco123@uniovi.es", "paco123", "Oviedo", "3",1);
         db.insertUser(user);
         AgentInfo userFromDB = db.getAgent("3", "paco123",1);
         assertThat(user.getId(), equalTo(userFromDB.getId()));
