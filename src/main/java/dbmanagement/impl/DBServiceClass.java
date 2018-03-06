@@ -1,7 +1,7 @@
-package dBmanagement.impl;
+package dbmanagement.impl;
 
-import dBmanagement.DBService;
-import dBmanagement.UserInfoRepository;
+import dbmanagement.DBService;
+import dbmanagement.UserInfoRepository;
 import agent.AgentInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

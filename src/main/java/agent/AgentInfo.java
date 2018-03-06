@@ -21,7 +21,7 @@ public class AgentInfo {
     private int kind;
 
     // Log
-    private static final Logger LOG = LoggerFactory.getLogger(AgentInfo.class);
+    // private static final Logger LOG = LoggerFactory.getLogger(AgentInfo.class);
 
     private AgentInfo() {}
     

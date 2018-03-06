@@ -1,4 +1,4 @@
-package dBmanagement;
+package dbmanagement;
 
 import agent.AgentInfo;
 import org.springframework.data.mongodb.repository.MongoRepository;
