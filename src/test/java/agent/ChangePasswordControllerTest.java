@@ -22,6 +22,7 @@ import java.net.URL;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertNotNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -92,7 +93,7 @@ public class ChangePasswordControllerTest {
         AgentInfo retrieved = db.getAgent("5", "123marta",1);
         assertNotNull(retrieved);
         assertTrue(retrieved.getId().equals("5"));
-        assertTrue(!retrieved.getPassword().equals("marta123"));
+        assertFalse(retrieved.getPassword().equals("marta123"));
         assertTrue(retrieved.getPassword().equals("123marta"));
 
     }
@@ -118,8 +119,8 @@ public class ChangePasswordControllerTest {
         assertNotNull(retrieved);
         assertTrue(retrieved.getEmail().equals("julia123@uniovi.es"));
         assertTrue(retrieved.getPassword().equals("julia123"));
-        assertTrue(!retrieved.getPassword().equals("123julia"));
-        assertTrue(!retrieved.getPassword().equals("12julia"));
+        assertFalse(retrieved.getPassword().equals("123julia"));
+        assertFalse(retrieved.getPassword().equals("12julia"));
 
     }
 
@@ -144,7 +145,7 @@ public class ChangePasswordControllerTest {
         assertNotNull(retrieved);
         assertTrue(retrieved.getId().equals("8"));
         assertTrue(retrieved.getPassword().equals("lucia123"));
-        assertTrue(!retrieved.getPassword().equals("123lucia"));
+        assertFalse(retrieved.getPassword().equals("123lucia"));
 
     }
 }

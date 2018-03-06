@@ -1,13 +1,13 @@
 package agent;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+// import org.slf4j.Logger;
+// import org.slf4j.LoggerFactory;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.Objects;
 
-@Document(collection= "tests")
-//@Document(collection= "loader_i1a_collection") //Esta coleccion se usa para la bd remota
+//@Document(collection= "tests")
+@Document(collection= "loader_i1a_collection") //Esta coleccion se usa para la bd remota
 public class AgentInfo {
 
     @Id

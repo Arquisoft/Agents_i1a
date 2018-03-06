@@ -25,17 +25,16 @@ import org.springframework.web.client.RestTemplate;
 public class ModelTest {
     @Value("${local.server.port}")
     private int port;
-
-    private URL base;
-   // private MongoClientURI base;
-    private RestTemplate template;
+    // private URL base;
+    // private MongoClientURI base;
+    // private RestTemplate template;
 
     @Before
     public void setUp() throws Exception {
-        this.base = new URL("http://localhost:" + port + "/");
+        new URL("http://localhost:" + port + "/");
         //this.base = new MongoClientURI("mongodb://Loader_i1a:EIIASW2018$@ds127888.mlab.com:27888/loader_i1a_db");
         //noinspection deprecation
-        template = new TestRestTemplate();
+        new TestRestTemplate();
     }
 
     @Test
@@ -46,13 +45,13 @@ public class ModelTest {
         String email;
         String location;
         int kind;
-        String NIF;
+        // String NIF;
         name = "name";
         username = "NameCaceres";
         password = "password";
         email = "mail@mail.com";
         location = "caceres";
-        NIF = "10203040A";
+        // NIF = "10203040A";
         kind = 1;
 
         AgentInfo user = new AgentInfo(name,email,password,username, kind);
