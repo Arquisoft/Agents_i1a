@@ -73,11 +73,11 @@ public class FormControllerTest {
 
     @Test
     public void testLoginCorrect() throws Exception {
-        AgentInfo user = new AgentInfo("juan","juan123@uniovi.es", "juan123","2",1);
+        AgentInfo user = new AgentInfo("juan","juan123@uniovi.es", "juan123","333",1);
         db.insertUser(user);
 
         mockMvc.perform(post("/login")
-                .param("login", "2")
+                .param("login", "333")
                 .param("password", "juan123")
                 .param("kind","1"))
                 .andExpect(status().isOk())
@@ -85,7 +85,37 @@ public class FormControllerTest {
                 .andExpect(model().attribute("email", equalTo("juan123@uniovi.es")))
                 .andExpect(model().attribute("kind",equalTo("person")))
                 .andExpect(model().attribute("kindCode",equalTo(1)));
-        AgentInfo retrieved = db.getAgent("2", "juan123",1);
+        AgentInfo retrieved = db.getAgent("333", "juan123",1);
+        assertNotNull(retrieved);
+
+        user = new AgentInfo("juan","juan123@uniovi.es", "juan123","444",2);
+        db.insertUser(user);
+
+        mockMvc.perform(post("/login")
+                .param("login", "444")
+                .param("password", "juan123")
+                .param("kind","2"))
+                .andExpect(status().isOk())
+                .andExpect(model().attribute("name", equalTo("juan")))
+                .andExpect(model().attribute("email", equalTo("juan123@uniovi.es")))
+                .andExpect(model().attribute("kind",equalTo("entity")))
+                .andExpect(model().attribute("kindCode",equalTo(2)));
+        retrieved = db.getAgent("444", "juan123",2);
+        assertNotNull(retrieved);
+
+        user = new AgentInfo("juan","juan123@uniovi.es", "juan123","555",3);
+        db.insertUser(user);
+
+        mockMvc.perform(post("/login")
+                .param("login", "555")
+                .param("password", "juan123")
+                .param("kind","3"))
+                .andExpect(status().isOk())
+                .andExpect(model().attribute("name", equalTo("juan")))
+                .andExpect(model().attribute("email", equalTo("juan123@uniovi.es")))
+                .andExpect(model().attribute("kind",equalTo("sensor")))
+                .andExpect(model().attribute("kindCode",equalTo(3)));
+        retrieved = db.getAgent("555", "juan123",3);
         assertNotNull(retrieved);
     }
 
