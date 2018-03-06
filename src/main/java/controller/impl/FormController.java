@@ -4,7 +4,7 @@ import agent.AgentInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import DBmanagement.DBService;
+import dBmanagement.DBService;
 import org.springframework.stereotype.Controller;
 
 /**

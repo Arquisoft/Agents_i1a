@@ -1,4 +1,4 @@
-package DBmanagement;
+package dBmanagement;
 
 import agent.AgentInfo;
 

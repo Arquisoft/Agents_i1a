@@ -4,20 +4,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
 import java.util.Objects;
 
 @Document(collection= "tests")
 //@Document(collection= "loader_i1a_collection") //Esta coleccion se usa para la bd remota
 public class AgentInfo {
 
-    // Log
-    private static final Logger LOG = LoggerFactory.getLogger(AgentInfo.class);
-
     @Id
     private String idautogenerado;
-
-    public String getIdautogenerado() { return idautogenerado;}
 
     private String name;
     private String email;
@@ -25,6 +19,9 @@ public class AgentInfo {
     private String location;
     private String id;
     private int kind;
+
+    // Log
+    private static final Logger LOG = LoggerFactory.getLogger(AgentInfo.class);
 
     private AgentInfo() {}
     
@@ -46,6 +43,8 @@ public class AgentInfo {
     public AgentInfo(String[] data) {
         this(data[0], data[1], data[3], data[4], data[5], Integer.parseInt(data[6]));
     }
+
+    public String getIdautogenerado() { return idautogenerado;}
 
     public String getPassword() { return password; }
 
