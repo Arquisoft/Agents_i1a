@@ -86,6 +86,31 @@ public class ModelTest {
     public void testCitizenDTO()throws Exception{
         AgentDTO citizen = new AgentDTO();
         assertNotNull(citizen);
+
+        AgentInfo user = new AgentInfo("Pepi","pepi@mail.com","paasRO", "Pajares","85",1);
+        citizen = new AgentDTO(user);
+        assertNotNull(citizen);
+
+        assertEquals("Pepi", citizen.getName());
+        assertEquals("pepi@mail.com", citizen.getEmail());
+        assertEquals("Pajares", citizen.getLocation());
+        assertEquals("85", citizen.getID());
+
+        citizen.setName("MariCarmen");
+        assertNotEquals("Pepi", citizen.getName());
+        assertEquals("MariCarmen", citizen.getName());
+
+        citizen.setEmail("maaa15@mail.com");
+        assertNotEquals("pepi@mail.com", citizen.getEmail());
+        assertEquals("maaa15@mail.com", citizen.getEmail());
+
+        citizen.setLocation("Ponga");
+        assertNotEquals("Pajares", citizen.getLocation());
+        assertEquals("Ponga", citizen.getLocation());
+        
+        citizen.setID("13");
+        assertNotEquals("85", citizen.getID());
+        assertEquals("13", citizen.getID());
     }
 
 }
