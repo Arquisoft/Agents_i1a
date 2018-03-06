@@ -51,7 +51,7 @@ public class MainControllerTest {
 
     @Test
     public void getLanding() throws Exception {
-        ResponseEntity<String> response = template.getForEntity(base.toString(), String.class);
+        template.getForEntity(base.toString(), String.class);
         mockMvc.perform(get("/"))
                 .andExpect(status().is3xxRedirection());
     }

@@ -2,7 +2,7 @@ package agent;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -24,9 +24,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.WebApplicationContext;
-
+//import org.springframework.web.client.RestTemplate;
 import dbmanagement.DBService;
 
 @SuppressWarnings("deprecation")
@@ -94,19 +93,19 @@ public class APIControllerTest {
                 .andExpect(content().json("{\"name\":\"maria\"," +
                         "\"id\":\"4\",\"email\":maria123@uniovi.es,\"kind\":1}")
                 );
-
+        assertNotNull(db.getAgent("4","maria123",1));
     }
 
     @Test
     public void postTestNotFoundUser() throws Exception {
         mockMvc.perform(post("/user")
-                .content("{ \"id\": \"jaajaaGarcia\", \"password\": \"nothepassword\"}")
+                .content("{ \"id\": \"jaajaaGarcia\", \"password\": \"nothepassword\", \"kind\": \"4\"}")
                 .contentType(new MediaType(MediaType.APPLICATION_JSON.getType(),
                         MediaType.APPLICATION_JSON.getSubtype(),
                         Charset.forName("utf8"))))
                 .andExpect(status().isNotFound()
                 );
-
+        assertNull(db.getAgent("jaajaaGarcia","nothepassword", 4));
     }
 
 

@@ -2,6 +2,9 @@ package agent;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -60,7 +63,7 @@ public class FormControllerTest {
 
     @Test
     public void testLoginPage() throws Exception {
-        ResponseEntity<String> response = template.getForEntity(base.toString(), String.class);
+        template.getForEntity(base.toString(), String.class);
         mockMvc.perform(get("/login"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Username:")))
@@ -82,6 +85,8 @@ public class FormControllerTest {
                 .andExpect(model().attribute("email", equalTo("juan123@uniovi.es")))
                 .andExpect(model().attribute("kind",equalTo("person")))
                 .andExpect(model().attribute("kindCode",equalTo(1)));
+        AgentInfo retrieved = db.getAgent("2", "juan123",1);
+        assertNotNull(retrieved);
     }
 
     @Test
@@ -89,7 +94,7 @@ public class FormControllerTest {
         mockMvc.perform(post("/login")
                 .param("login", "inco@rre.ct")
                 .param("password", "user")
-                .param("kind","1"))
+                .param("kind", "1"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Invalid login details.")));
     }

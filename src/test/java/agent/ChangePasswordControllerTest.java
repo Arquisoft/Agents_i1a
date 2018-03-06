@@ -65,7 +65,7 @@ public class ChangePasswordControllerTest {
 
     @Test
     public void testGetChangePasswordPage() throws Exception {
-        ResponseEntity<String> response = template.getForEntity(base.toString(), String.class);
+        template.getForEntity(base.toString(), String.class);
         mockMvc.perform(get("/changePassword"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("passwform")))
@@ -74,7 +74,7 @@ public class ChangePasswordControllerTest {
 
     @Test
     public void testPostChangePasswordSuccess() throws Exception {
-        // If this test fails, tru clearing the database
+        // If this test fails, try clearing the database
         AgentInfo user = new AgentInfo("marta", "marta123@uniovi.es", "marta123","5",1);
         db.insertUser(user);
 
