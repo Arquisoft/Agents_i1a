@@ -1,7 +1,5 @@
 package agent;
 
-// import org.slf4j.Logger;
-// import org.slf4j.LoggerFactory;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.Objects;
@@ -19,9 +17,6 @@ public class AgentInfo {
     private String location;
     private String id;
     private int kind;
-
-    // Log
-    // private static final Logger LOG = LoggerFactory.getLogger(AgentInfo.class);
 
     private AgentInfo() {}
     
@@ -68,7 +63,7 @@ public class AgentInfo {
                 ", location='" + location + '\'' +
                 ", id='" + id + '\'' +
                 ", kind=" + kind +
-                '}';
+                "}";
     }
 
     @Override
