@@ -96,7 +96,7 @@ public class APIControllerTest {
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andExpect(content().encoding("UTF-8"))
                 .andExpect(content().json("{\"name\":\"maria\"," +
-                        "\"id\":\"4\",\"email\":maria123@uniovi.es,\"kind\":1}")
+                        "\"id\":\"4\",\"email\":maria123@uniovi.es,\"kind\":'1'}")
                 );
         assertNotNull(db.getAgent("4","maria123",1));
     }
