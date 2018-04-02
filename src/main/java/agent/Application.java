@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 
 @SpringBootApplication
 @EnableMongoRepositories("dbmanagement")
-@ComponentScan({"dbmanagement","services","controller", "agent"})
+@ComponentScan({"dbmanagement","validator","services","controller", "agent"})
 public class Application {
 
     public static void main(String[] args) {

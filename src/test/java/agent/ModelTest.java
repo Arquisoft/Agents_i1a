@@ -94,7 +94,7 @@ public class ModelTest {
         assertEquals("Pepi", citizen.getName());
         assertEquals("pepi@mail.com", citizen.getEmail());
         assertEquals("Pajares", citizen.getLocation());
-        assertEquals("85", citizen.getID());
+        assertEquals("85", citizen.getId());
 
         citizen.setName("MariCarmen");
         assertNotEquals("Pepi", citizen.getName());
@@ -108,9 +108,9 @@ public class ModelTest {
         assertNotEquals("Pajares", citizen.getLocation());
         assertEquals("Ponga", citizen.getLocation());
         
-        citizen.setID("13");
-        assertNotEquals("85", citizen.getID());
-        assertEquals("13", citizen.getID());
+        citizen.setId("13");
+        assertNotEquals("85", citizen.getId());
+        assertEquals("13", citizen.getId());
     }
 
 }
