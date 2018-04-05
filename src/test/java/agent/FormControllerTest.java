@@ -2,6 +2,9 @@ package agent;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -31,7 +34,7 @@ import DBmanagement.DBService;
 
 @SuppressWarnings("deprecation")
 @RunWith(SpringJUnit4ClassRunner.class)
-@ComponentScan("DBmanagement")
+@ComponentScan("dbmanagement")
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
 @IntegrationTest({"server.port=0"})
@@ -60,7 +63,7 @@ public class FormControllerTest {
 
     @Test
     public void testLoginPage() throws Exception {
-        ResponseEntity<String> response = template.getForEntity(base.toString(), String.class);
+        template.getForEntity(base.toString(), String.class);
         mockMvc.perform(get("/login"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Username:")))
@@ -70,11 +73,11 @@ public class FormControllerTest {
 
     @Test
     public void testLoginCorrect() throws Exception {
-        AgentInfo user = new AgentInfo("juan","juan123@uniovi.es", "juan123","2",1);
+        AgentInfo user = new AgentInfo("juan","juan123@uniovi.es", "juan123","333",1);
         db.insertUser(user);
 
         mockMvc.perform(post("/login")
-                .param("login", "2")
+                .param("login", "333")
                 .param("password", "juan123")
                 .param("kind","1"))
                 .andExpect(status().isOk())
@@ -82,6 +85,38 @@ public class FormControllerTest {
                 .andExpect(model().attribute("email", equalTo("juan123@uniovi.es")))
                 .andExpect(model().attribute("kind",equalTo("person")))
                 .andExpect(model().attribute("kindCode",equalTo(1)));
+        AgentInfo retrieved = db.getAgent("333", "juan123",1);
+        assertNotNull(retrieved);
+
+        user = new AgentInfo("juan","juan123@uniovi.es", "juan123","444",2);
+        db.insertUser(user);
+
+        mockMvc.perform(post("/login")
+                .param("login", "444")
+                .param("password", "juan123")
+                .param("kind","2"))
+                .andExpect(status().isOk())
+                .andExpect(model().attribute("name", equalTo("juan")))
+                .andExpect(model().attribute("email", equalTo("juan123@uniovi.es")))
+                .andExpect(model().attribute("kind",equalTo("entity")))
+                .andExpect(model().attribute("kindCode",equalTo(2)));
+        retrieved = db.getAgent("444", "juan123",2);
+        assertNotNull(retrieved);
+
+        user = new AgentInfo("juan","juan123@uniovi.es", "juan123","555",3);
+        db.insertUser(user);
+
+        mockMvc.perform(post("/login")
+                .param("login", "555")
+                .param("password", "juan123")
+                .param("kind","3"))
+                .andExpect(status().isOk())
+                .andExpect(model().attribute("name", equalTo("juan")))
+                .andExpect(model().attribute("email", equalTo("juan123@uniovi.es")))
+                .andExpect(model().attribute("kind",equalTo("sensor")))
+                .andExpect(model().attribute("kindCode",equalTo(3)));
+        retrieved = db.getAgent("555", "juan123",3);
+        assertNotNull(retrieved);
     }
 
     @Test
@@ -89,7 +124,7 @@ public class FormControllerTest {
         mockMvc.perform(post("/login")
                 .param("login", "inco@rre.ct")
                 .param("password", "user")
-                .param("kind","1"))
+                .param("kind", "1"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Invalid login details.")));
     }

@@ -19,7 +19,6 @@ Run tests in remote:
 2. Uncomment the line of the application.properties file.
 
 # Authors
-
 - Herminio García González (@herminiogg)
 - Jose Emilio Labra Gayo (@labra)
 - Paula Tuñón Alba

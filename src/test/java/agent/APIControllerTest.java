@@ -2,7 +2,7 @@ package agent;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -23,17 +23,14 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.WebApplicationContext;
-
+//import org.springframework.web.client.RestTemplate;
 import DBmanagement.DBService;
 
 @SuppressWarnings("deprecation")
 @RunWith(SpringJUnit4ClassRunner.class)
-@ComponentScan("DBmanagement")
+@ComponentScan("dbmanagement")
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
 @IntegrationTest({"server.port=0"})
@@ -41,9 +38,6 @@ public class APIControllerTest {
     @Value("${local.server.port}")
     private int port;
 
-    private URL base;
-    //private MongoClientURI base;
-    private RestTemplate template;
     private MockMvc mockMvc;
 
     @Autowired
@@ -54,16 +48,16 @@ public class APIControllerTest {
 
     @Before
     public void setUp() throws Exception {
-        this.base = new URL("http://localhost:" + port + "/");
-        //this.base = new MongoClientURI("mongodb://admin:EIIASW2018$@ds127888.mlab.com:27888/loader_i1a_db");
+        new URL("http://localhost:" + port + "/");
+        //new MongoClientURI("mongodb://admin:EIIASW2018$@ds127888.mlab.com:27888/loader_i1a_db");
         //noinspection deprecation
-        template = new TestRestTemplate();
+        new TestRestTemplate();
         mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
     }
 
     @Test
     public void testDatabase() throws Exception {
-        AgentInfo user = new AgentInfo("paco",  "paco123@uniovi.es", "paco123","3",1);
+        AgentInfo user = new AgentInfo("paco",  "paco123@uniovi.es", "paco123", "Oviedo", "3",1);
         db.insertUser(user);
         AgentInfo userFromDB = db.getAgent("3", "paco123",1);
         assertThat(user.getId(), equalTo(userFromDB.getId()));
@@ -77,10 +71,15 @@ public class APIControllerTest {
         assertThat("3", equalTo(userFromDB.getId()));
         assertThat("123paco", equalTo(userFromDB.getPassword()));
 
-
         update = db.updateInfo(userFromDB.getId(), "paco123", "123pepe");
         assertThat(update, equalTo(false));
 
+        String[] info = {"paco","paco123@uniovi.es","paco123","Oviedo","3","2"};
+        AgentInfo user2 = new AgentInfo(info);
+
+        assertFalse(user.getIdautogenerado() == user2.getIdautogenerado());
+        assertFalse(user.equals(user2));
+        assertFalse(user.hashCode() == user2.hashCode());
     }
 
     @Test
@@ -97,21 +96,21 @@ public class APIControllerTest {
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andExpect(content().encoding("UTF-8"))
                 .andExpect(content().json("{\"name\":\"maria\"," +
-                        "\"id\":\"4\",\"email\":maria123@uniovi.es,\"kind\":1}")
+                        "\"id\":\"4\",\"email\":maria123@uniovi.es,\"kind\":'1'}")
                 );
-
+        assertNotNull(db.getAgent("4","maria123",1));
     }
 
     @Test
     public void postTestNotFoundUser() throws Exception {
         mockMvc.perform(post("/user")
-                .content("{ \"id\": \"jaajaaGarcia\", \"password\": \"nothepassword\"}")
+                .content("{ \"id\": \"jaajaaGarcia\", \"password\": \"nothepassword\", \"kind\": \"4\"}")
                 .contentType(new MediaType(MediaType.APPLICATION_JSON.getType(),
                         MediaType.APPLICATION_JSON.getSubtype(),
                         Charset.forName("utf8"))))
                 .andExpect(status().isNotFound()
                 );
-
+        assertNull(db.getAgent("jaajaaGarcia","nothepassword", 4));
     }
 
 

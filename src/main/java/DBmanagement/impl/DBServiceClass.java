@@ -41,8 +41,8 @@ public class DBServiceClass implements DBService {
     public void insertUser(AgentInfo user) {
         repository.insert(user);
     }
-
-	public AgentInfo findById(String id) {
-		return repository.findById(id);
-	}
+    
+    public AgentInfo findById(String id) {
+    	return repository.findById(id);
+    }
 }

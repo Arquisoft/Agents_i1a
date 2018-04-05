@@ -10,5 +10,4 @@ public interface UserInfoRepository extends MongoRepository<AgentInfo, String> {
     AgentInfo insert(AgentInfo user);
     AgentInfo findById(String id);
 
-
 }
