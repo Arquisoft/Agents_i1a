@@ -29,4 +29,13 @@ public class AgentRestController {
 		if(agent == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		else return new ResponseEntity<>(agent, HttpStatus.OK);
 	}
+	
+	@RequestMapping(value="/restAgentInfo", method=RequestMethod.POST,
+			consumes = MediaType.APPLICATION_JSON_VALUE,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public agent.AgentInfo returnAgentInfo(@RequestBody AgentLogin receivedInfo) {
+		agent.AgentInfo agent = dbService.findById(receivedInfo.getId());
+		return agent;
+	}
 }
