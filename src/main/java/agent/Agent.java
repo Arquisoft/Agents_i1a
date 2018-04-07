@@ -55,7 +55,7 @@ public class Agent {
 
     @Override
     public String toString() {
-        return "AgentInfo{" +
+        return "Agent{" +
                 "idautogenerado='" + idautogenerado + '\'' +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +

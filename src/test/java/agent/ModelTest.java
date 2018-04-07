@@ -43,7 +43,7 @@ public class ModelTest {
     }
 
     @Test
-    public void testUserInfo() throws Exception {
+    public void testAgentInfo() throws Exception {
         String password;
         String name;
         String email;
@@ -85,6 +85,61 @@ public class ModelTest {
 
         assertFalse(user.hashCode() == user2.hashCode());
         assertFalse(user.equals(user2));
+        assertFalse(user.equals(null));
+        assertTrue(user.equals(user));
+    }
+    
+    @Test
+    public void testAgent() throws Exception{
+    	String password;
+        String name;
+        String email;
+        String location;
+        String NIF;
+        int kind;
+
+        name = "name";
+        password = "password";
+        email = "mail@mail.com";
+        location = "caceres";
+        NIF = "10203040A";
+        kind = 1;
+        String[] data = {name, password, email, location, NIF, String.valueOf(kind)};
+
+        Agent user = new Agent(name,email,password,NIF,kind);
+        Agent user2 = new Agent(name,email,password,location,NIF,kind);
+        Agent user3 = new Agent(data);
+        
+        assertFalse(user2.equals(user3));
+
+        assertTrue(user.getPassword().equals(password));
+        user.setPassword("nueva");
+        assertFalse(user.getPassword().equals(password));
+        assertTrue(user.getName().equals(name));
+        assertTrue(user.getId().equals(NIF));
+        assertTrue(user.getEmail().equals(email));
+        assertTrue(user.getLocation().equals(""));
+        assertTrue(user.getIdautogenerado() == null);
+        assertTrue(user.getKind() == 1);
+
+        assertTrue(user2.getName().equals(name));
+        assertTrue(user2.getId().equals(NIF));
+        assertTrue(user2.getEmail().equals(email));
+        assertTrue(user2.getLocation().equals(location));
+        assertTrue(user2.getIdautogenerado() == null);
+
+        assertEquals("Agent{idautogenerado='null', name='name'" +
+                ", email='mail@mail.com', password='nueva', location='', id='10203040A'" +
+                ", kind=1}", user.toString());
+
+        assertEquals("Agent{idautogenerado='null', name='name'" +
+                ", email='mail@mail.com', password='password', location='caceres', id='10203040A'" +
+                ", kind=1}", user2.toString());
+
+        assertFalse(user.hashCode() == user2.hashCode());
+        assertFalse(user.equals(user2));
+        assertFalse(user.equals(null));
+        assertTrue(user.equals(user));
     }
 
     @Test
