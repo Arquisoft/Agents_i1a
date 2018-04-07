@@ -46,4 +46,9 @@ public class DBServiceClass implements DBService {
     public AgentInfo findById(String id) {
     	return repository.findById(id);
     }
+
+    @Override
+    public void wipeAll(){
+        repository.deleteAll();
+    }
 }

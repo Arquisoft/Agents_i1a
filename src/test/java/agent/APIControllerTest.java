@@ -54,6 +54,7 @@ public class APIControllerTest {
         new URL("http://localhost:" + port + "/");
         //new MongoClientURI("mongodb://admin:EIIASW2018$@ds127888.mlab.com:27888/loader_i1a_db");
         //noinspection deprecation
+        db.wipeAll();
         new TestRestTemplate();
         mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
     }
