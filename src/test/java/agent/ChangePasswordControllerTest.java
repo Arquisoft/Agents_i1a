@@ -90,7 +90,7 @@ public class ChangePasswordControllerTest {
         assertTrue(retrieved.getId().equals("5"));
         assertFalse(retrieved.getPassword().equals("marta123"));
         assertTrue(retrieved.getPassword().equals("123marta"));
-
+   
     }
 
     @Test
