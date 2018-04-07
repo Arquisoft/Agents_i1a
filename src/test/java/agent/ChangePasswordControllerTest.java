@@ -57,7 +57,6 @@ public class ChangePasswordControllerTest {
     @Before
     public void setUp() throws Exception {
         this.base = new URL("http://localhost:" + port + "/");
-        //this.base = new MongoClientURI("mongodb://Loader_i1a:EIIASW2018$@ds127888.mlab.com:27888/loader_i1a_db");
         db.wipeAll();
         template = new TestRestTemplate();
         mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
@@ -74,7 +73,6 @@ public class ChangePasswordControllerTest {
 
     @Test
     public void testPostChangePasswordSuccess() throws Exception {
-        // If this test fails, try clearing the database
         AgentInfo user = new AgentInfo("marta", "marta123@uniovi.es", "marta123","5",1);
         db.insertUser(user);
 

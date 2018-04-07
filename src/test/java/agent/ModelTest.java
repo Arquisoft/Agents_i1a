@@ -18,8 +18,6 @@ import org.springframework.boot.test.TestRestTemplate;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-// import org.springframework.web.client.RestTemplate;
-// import org.springframework.web.client.RestTemplate;
 
 @SuppressWarnings("deprecation")
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -30,15 +28,10 @@ import org.springframework.test.context.web.WebAppConfiguration;
 public class ModelTest {
     @Value("${local.server.port}")
     private int port;
-    // private URL base;
-    // private MongoClientURI base;
-    // private RestTemplate template;
 
     @Before
     public void setUp() throws Exception {
         new URL("http://localhost:" + port + "/");
-        //this.base = new MongoClientURI("mongodb://Loader_i1a:EIIASW2018$@ds127888.mlab.com:27888/loader_i1a_db");
-        //noinspection deprecation
         new TestRestTemplate();
     }
 

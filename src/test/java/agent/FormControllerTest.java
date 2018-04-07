@@ -40,7 +40,6 @@ public class FormControllerTest {
     private int port;
 
     private URL base;
-    //private MongoClientURI base;
     private RestTemplate template;
     private MockMvc mockMvc;
 
