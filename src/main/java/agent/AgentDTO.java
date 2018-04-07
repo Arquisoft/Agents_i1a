@@ -11,7 +11,7 @@ public class AgentDTO {
 
     public AgentDTO() {}
 
-    public AgentDTO(AgentInfo user) {
+    public AgentDTO(Agent user) {
         this.name = user.getName();
         this.email = user.getEmail();
         this.location = user.getLocation();

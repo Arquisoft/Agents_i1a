@@ -2,9 +2,7 @@ package agent;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -22,7 +20,6 @@ import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.boot.test.TestRestTemplate;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
@@ -73,7 +70,7 @@ public class FormControllerTest {
 
     @Test
     public void testLoginCorrect() throws Exception {
-        AgentInfo user = new AgentInfo("juan","juan123@uniovi.es", "juan123","333",1);
+        Agent user = new Agent("juan","juan123@uniovi.es", "juan123","333",1);
         db.insertUser(user);
 
         mockMvc.perform(post("/login")
@@ -85,10 +82,10 @@ public class FormControllerTest {
                 .andExpect(model().attribute("email", equalTo("juan123@uniovi.es")))
                 .andExpect(model().attribute("kind",equalTo("person")))
                 .andExpect(model().attribute("kindCode",equalTo(1)));
-        AgentInfo retrieved = db.getAgent("333", "juan123",1);
+        Agent retrieved = db.getAgent("333", "juan123",1);
         assertNotNull(retrieved);
 
-        user = new AgentInfo("juan","juan123@uniovi.es", "juan123","444",2);
+        user = new Agent("juan","juan123@uniovi.es", "juan123","444",2);
         db.insertUser(user);
 
         mockMvc.perform(post("/login")
@@ -103,7 +100,7 @@ public class FormControllerTest {
         retrieved = db.getAgent("444", "juan123",2);
         assertNotNull(retrieved);
 
-        user = new AgentInfo("juan","juan123@uniovi.es", "juan123","555",3);
+        user = new Agent("juan","juan123@uniovi.es", "juan123","555",3);
         db.insertUser(user);
 
         mockMvc.perform(post("/login")

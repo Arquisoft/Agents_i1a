@@ -1,6 +1,6 @@
 package controller.impl;
 
-import agent.AgentInfo;
+import agent.Agent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,7 +35,7 @@ public class ChangePasswordController implements controller.ChangePassword {
             , @RequestParam(value = "password") String password
             , @RequestParam(value = "password2") String password2)
         {
-        AgentInfo user = service.getAgent(username, old, Integer.parseInt(kind));
+        Agent user = service.getAgent(username, old, Integer.parseInt(kind));
         if (user == null) {
             model.addAttribute("bg", "background: #F00;");
             model.addAttribute("result", "The password is incorrect");

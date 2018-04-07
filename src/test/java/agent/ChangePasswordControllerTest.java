@@ -75,7 +75,7 @@ public class ChangePasswordControllerTest {
     @Test
     public void testPostChangePasswordSuccess() throws Exception {
         // If this test fails, try clearing the database
-        AgentInfo user = new AgentInfo("marta", "marta123@uniovi.es", "marta123","5",1);
+        Agent user = new Agent("marta", "marta123@uniovi.es", "marta123","5",1);
         db.insertUser(user);
 
         mockMvc.perform(post("/changePassword")
@@ -90,7 +90,7 @@ public class ChangePasswordControllerTest {
                 .andExpect(content().string(containsString("passwform")))
                 .andExpect(content().string(containsString("result")))
                 .andExpect(content().string(containsString("Go back to")));
-        AgentInfo retrieved = db.getAgent("5", "123marta",1);
+        Agent retrieved = db.getAgent("5", "123marta",1);
         assertNotNull(retrieved);
         assertTrue(retrieved.getId().equals("5"));
         assertFalse(retrieved.getPassword().equals("marta123"));
@@ -100,7 +100,7 @@ public class ChangePasswordControllerTest {
 
     @Test
     public void testPostChangePasswordFail1() throws Exception {
-        AgentInfo user = new AgentInfo("julia", "julia123@uniovi.es", "julia123", "","6",1);
+        Agent user = new Agent("julia", "julia123@uniovi.es", "julia123", "","6",1);
         db.insertUser(user);
 
         mockMvc.perform(post("/changePassword")
@@ -115,7 +115,7 @@ public class ChangePasswordControllerTest {
                 .andExpect(content().string(containsString("passwform")))
                 .andExpect(content().string(containsString("result")))
                 .andExpect(content().string(containsString("Go back to")));
-        AgentInfo retrieved = db.getAgent("6", "julia123",1);
+        Agent retrieved = db.getAgent("6", "julia123",1);
         assertNotNull(retrieved);
         assertTrue(retrieved.getEmail().equals("julia123@uniovi.es"));
         assertTrue(retrieved.getPassword().equals("julia123"));
@@ -126,7 +126,7 @@ public class ChangePasswordControllerTest {
 
     @Test
     public void testPostChangePasswordFail2() throws Exception {
-        AgentInfo user = new AgentInfo("lucia", "lucia123@uniovi.es", "lucia123","8",1);
+        Agent user = new Agent("lucia", "lucia123@uniovi.es", "lucia123","8",1);
         db.insertUser(user);
 
         mockMvc.perform(post("/changePassword")
@@ -141,7 +141,7 @@ public class ChangePasswordControllerTest {
                 .andExpect(content().string(containsString("passwform")))
                 .andExpect(content().string(containsString("result")))
                 .andExpect(content().string(containsString("Go back to")));
-        AgentInfo retrieved = db.getAgent("8", "lucia123",1);
+        Agent retrieved = db.getAgent("8", "lucia123",1);
         assertNotNull(retrieved);
         assertTrue(retrieved.getId().equals("8"));
         assertTrue(retrieved.getPassword().equals("lucia123"));

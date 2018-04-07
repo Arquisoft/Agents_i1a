@@ -53,8 +53,8 @@ public class ModelTest {
         NIF = "10203040A";
         kind = 1;
 
-        AgentInfo user = new AgentInfo(name,email,password,NIF,kind);
-        AgentInfo user2 = new AgentInfo(name,email,password,location,NIF,kind);
+        Agent user = new Agent(name,email,password,NIF,kind);
+        Agent user2 = new Agent(name,email,password,location,NIF,kind);
 
         assertTrue(user.getPassword().equals(password));
         assertTrue(user.getName().equals(name));
@@ -87,7 +87,7 @@ public class ModelTest {
         AgentDTO citizen = new AgentDTO();
         assertNotNull(citizen);
 
-        AgentInfo user = new AgentInfo("Pepi","pepi@mail.com","paasRO", "Pajares","85",1);
+        Agent user = new Agent("Pepi","pepi@mail.com","paasRO", "Pajares","85",1);
         citizen = new AgentDTO(user);
         assertNotNull(citizen);
 
@@ -107,7 +107,7 @@ public class ModelTest {
         citizen.setLocation("Ponga");
         assertNotEquals("Pajares", citizen.getLocation());
         assertEquals("Ponga", citizen.getLocation());
-        
+
         citizen.setID("13");
         assertNotEquals("85", citizen.getID());
         assertEquals("13", citizen.getID());

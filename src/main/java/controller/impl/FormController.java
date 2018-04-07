@@ -1,6 +1,6 @@
 package controller.impl;
 
-import agent.AgentInfo;
+import agent.Agent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +30,7 @@ public class FormController {
                             @RequestParam(value = "kind") String kind) {
         // If the combination of id and password is correct, the data of the user is returned
         // If not, 404 NOT FOUND is returned
-        AgentInfo user = service.getAgent(id, password, Integer.parseInt(kind));
+        Agent user = service.getAgent(id, password, Integer.parseInt(kind));
 
         if (user == null)
             return "usererror";

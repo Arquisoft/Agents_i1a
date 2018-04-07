@@ -2,7 +2,7 @@ package dbmanagement.impl;
 
 import dbmanagement.DBService;
 import dbmanagement.UserInfoRepository;
-import agent.AgentInfo;
+import agent.Agent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +18,7 @@ public class DBServiceClass implements DBService {
 
     @Override
     public boolean updateInfo(String id, String oldPass, String newPass) {
-        AgentInfo user = repository.findById(id);
+        Agent user = repository.findById(id);
         if (user.getPassword().equals(oldPass)) {
             user.setPassword(newPass);
             repository.save(user);
@@ -28,8 +28,8 @@ public class DBServiceClass implements DBService {
     }
 
     @Override
-    public AgentInfo getAgent(String id, String password, int kind) {
-        AgentInfo user = repository.findById(id);
+    public Agent getAgent(String id, String password, int kind) {
+        Agent user = repository.findById(id);
 
         if (user != null && user.getPassword().equals(password) && user.getKind() == kind)
             return user;
@@ -38,7 +38,7 @@ public class DBServiceClass implements DBService {
     }
 
     @Override
-    public void insertUser(AgentInfo user) {
+    public void insertUser(Agent user) {
         repository.insert(user);
     }
 }

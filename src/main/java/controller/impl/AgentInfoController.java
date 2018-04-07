@@ -3,7 +3,7 @@ package controller.impl;
 
 import agent.AgentDTO;
 import agent.AgentLogin;
-import agent.AgentInfo;
+import agent.Agent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +26,7 @@ public class AgentInfoController implements controller.AgentInfo {
         // If the combination of id and password is correct, the data of the user is returned
         // If not, 404 NOT FOUND is returned
 
-        AgentInfo user = service.getAgent(login.getId(), login.getPassword(), login.getKind());
+        Agent user = service.getAgent(login.getId(), login.getPassword(), login.getKind());
         if (user == null)
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         else {

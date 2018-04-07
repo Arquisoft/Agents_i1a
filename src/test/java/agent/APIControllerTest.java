@@ -57,9 +57,9 @@ public class APIControllerTest {
 
     @Test
     public void testDatabase() throws Exception {
-        AgentInfo user = new AgentInfo("paco",  "paco123@uniovi.es", "paco123", "Oviedo", "3",1);
+        Agent user = new Agent("paco",  "paco123@uniovi.es", "paco123", "Oviedo", "3",1);
         db.insertUser(user);
-        AgentInfo userFromDB = db.getAgent("3", "paco123",1);
+        Agent userFromDB = db.getAgent("3", "paco123",1);
         assertThat(user.getId(), equalTo(userFromDB.getId()));
         assertThat(user.getPassword(), equalTo(userFromDB.getPassword()));
         assertThat(user.getKind(), equalTo(userFromDB.getKind()));
@@ -75,7 +75,7 @@ public class APIControllerTest {
         assertThat(update, equalTo(false));
 
         String[] info = {"paco","paco123@uniovi.es","paco123","Oviedo","3","2"};
-        AgentInfo user2 = new AgentInfo(info);
+        Agent user2 = new Agent(info);
 
         assertFalse(user.getIdautogenerado() == user2.getIdautogenerado());
         assertFalse(user.equals(user2));
@@ -84,7 +84,7 @@ public class APIControllerTest {
 
     @Test
     public void postTestUser() throws Exception {
-        AgentInfo user = new AgentInfo("maria", "maria123@uniovi.es"
+        Agent user = new Agent("maria", "maria123@uniovi.es"
                 , "maria123","4",1);
         db.insertUser(user);
         mockMvc.perform(post("/user")
