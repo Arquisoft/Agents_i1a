@@ -5,6 +5,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.net.URL;
 
+import dbmanagement.DBService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -38,11 +39,14 @@ public class MainControllerTest {
     @Autowired
     private WebApplicationContext context;
 
+    @Autowired
+    private DBService db;
+
     @Before
     public void setUp() throws Exception {
         this.base = new URL("http://localhost:" + port + "/");
         //this.base = new MongoClientURI("mongodb://Loader_i1a:EIIASW2018$@ds127888.mlab.com:27888/loader_i1a_db");
-
+        db.wipeAll();
         template = new TestRestTemplate();
         Application.main(new String[0]);
         mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
