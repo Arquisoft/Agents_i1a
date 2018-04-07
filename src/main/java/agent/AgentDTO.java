@@ -2,61 +2,90 @@ package agent;
 
 public class AgentDTO {
 
+
     private String name;
-    private String location;
     private String email;
+    private String password;
+    private String location;
     private String id;
-    private int kind;
+    private String kind;
+	private String newpassword;
+	private String newpassword2;
+
 
 
     public AgentDTO() {}
 
-    public AgentDTO(Agent user) {
+    public AgentDTO(AgentInfo user) {
         this.name = user.getName();
         this.email = user.getEmail();
         this.location = user.getLocation();
         this.id = user.getId();
-        this.kind = user.getKind();
+        this.kind = String.valueOf(user.getKind());
     }
 
-    public String getName() {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public String getLocation() {
-        return location;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public void setLocation(String location) {
-        this.location = location;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-    public String getID() {
-        return id;
-    }
+	public String getLocation() {
+		return location;
+	}
 
-    public void setID(String id) {
-        this.id = id;
-    }
+	public void setLocation(String location) {
+		this.location = location;
+	}
 
-    public int getKind() {
-        return kind;
-    }
+	public String getId() {
+		return id;
+	}
 
-    public void setKind(int kind) {
-        this.kind = kind;
-    }
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getKind() {
+		return kind;
+	}
+
+	public void setKind(String kind) {
+		this.kind = kind;
+	}
+
+	public String getNewpassword() {
+		return newpassword;
+	}
+
+	public void setNewpassword(String newpassword) {
+		this.newpassword = newpassword;
+	}
+
+	public String getNewpassword2() {
+		return newpassword2;
+	}
+
+	public void setNewpassword2(String newpassword2) {
+		this.newpassword2 = newpassword2;
+	}
 
 }

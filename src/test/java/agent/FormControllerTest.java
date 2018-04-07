@@ -70,7 +70,7 @@ public class FormControllerTest {
 
     @Test
     public void testLoginCorrect() throws Exception {
-        Agent user = new Agent("juan","juan123@uniovi.es", "juan123","333",1);
+        AgentInfo user = new AgentInfo("juan","juan123@uniovi.es", "juan123","333",1);
         db.insertUser(user);
 
         mockMvc.perform(post("/login")
@@ -82,10 +82,10 @@ public class FormControllerTest {
                 .andExpect(model().attribute("email", equalTo("juan123@uniovi.es")))
                 .andExpect(model().attribute("kind",equalTo("person")))
                 .andExpect(model().attribute("kindCode",equalTo(1)));
-        Agent retrieved = db.getAgent("333", "juan123",1);
+        AgentInfo retrieved = db.getAgent("333", "juan123",1);
         assertNotNull(retrieved);
 
-        user = new Agent("juan","juan123@uniovi.es", "juan123","444",2);
+        user = new AgentInfo("juan","juan123@uniovi.es", "juan123","444",2);
         db.insertUser(user);
 
         mockMvc.perform(post("/login")
@@ -100,7 +100,7 @@ public class FormControllerTest {
         retrieved = db.getAgent("444", "juan123",2);
         assertNotNull(retrieved);
 
-        user = new Agent("juan","juan123@uniovi.es", "juan123","555",3);
+        user = new AgentInfo("juan","juan123@uniovi.es", "juan123","555",3);
         db.insertUser(user);
 
         mockMvc.perform(post("/login")

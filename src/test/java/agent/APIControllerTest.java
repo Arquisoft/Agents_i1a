@@ -2,7 +2,10 @@ package agent;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -25,7 +28,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-//import org.springframework.web.client.RestTemplate;
+
 import dbmanagement.DBService;
 
 @SuppressWarnings("deprecation")
@@ -57,9 +60,9 @@ public class APIControllerTest {
 
     @Test
     public void testDatabase() throws Exception {
-        Agent user = new Agent("paco",  "paco123@uniovi.es", "paco123", "Oviedo", "3",1);
+        AgentInfo user = new AgentInfo("paco",  "paco123@uniovi.es", "paco123", "Oviedo", "3",1);
         db.insertUser(user);
-        Agent userFromDB = db.getAgent("3", "paco123",1);
+        AgentInfo userFromDB = db.getAgent("3", "paco123",1);
         assertThat(user.getId(), equalTo(userFromDB.getId()));
         assertThat(user.getPassword(), equalTo(userFromDB.getPassword()));
         assertThat(user.getKind(), equalTo(userFromDB.getKind()));
@@ -75,7 +78,7 @@ public class APIControllerTest {
         assertThat(update, equalTo(false));
 
         String[] info = {"paco","paco123@uniovi.es","paco123","Oviedo","3","2"};
-        Agent user2 = new Agent(info);
+        AgentInfo user2 = new AgentInfo(info);
 
         assertFalse(user.getIdautogenerado() == user2.getIdautogenerado());
         assertFalse(user.equals(user2));
@@ -84,7 +87,7 @@ public class APIControllerTest {
 
     @Test
     public void postTestUser() throws Exception {
-        Agent user = new Agent("maria", "maria123@uniovi.es"
+        AgentInfo user = new AgentInfo("maria", "maria123@uniovi.es"
                 , "maria123","4",1);
         db.insertUser(user);
         mockMvc.perform(post("/user")
@@ -96,7 +99,7 @@ public class APIControllerTest {
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andExpect(content().encoding("UTF-8"))
                 .andExpect(content().json("{\"name\":\"maria\"," +
-                        "\"id\":\"4\",\"email\":maria123@uniovi.es,\"kind\":1}")
+                        "\"id\":\"4\",\"email\":maria123@uniovi.es,\"kind\":'1'}")
                 );
         assertNotNull(db.getAgent("4","maria123",1));
     }

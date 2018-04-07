@@ -1,13 +1,13 @@
 package dbmanagement;
 
-import agent.Agent;
+import agent.AgentInfo;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserInfoRepository extends MongoRepository<Agent, String> {
+public interface UserInfoRepository extends MongoRepository<AgentInfo, String> {
 
-    Agent insert(Agent user);
-    Agent findById(String id);
+    AgentInfo insert(AgentInfo user);
+    AgentInfo findById(String id);
 
 }

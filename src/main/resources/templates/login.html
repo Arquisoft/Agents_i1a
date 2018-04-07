@@ -2,40 +2,43 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8"/>
-    <title>Login</title>
-    <style>
-        html, body {
-            width: 100%;
-            height: 100%;
-            font-family: "Helvetica Neue", Helvetica, sans-serif;
-            color: #444;
-            -webkit-font-smoothing: antialiased;
-            background: #f0f0f0;
-        }
-        form {
-            margin-left: 2%;
-            margin-top: 2%;
-        }
+     
+<head th:replace="fragments/head" />
 
-
-    </style>
-</head>
 <body>
-<div id="loginform">
+<nav th:replace="fragments/nav" />
+  <div style="height: 70%">
+        <div class="flex-center flex-column">
+	<br/>
     <form action="login" method="post">
-        <label for="login">Username:</label>
-        <input type="text" id="login" name="login"/>
-
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password"/>
-
-        <label for="kind">Kind:</label>
-        <input type="text" id="kind" name="kind"/>
-
-        <input type="submit" value="Login"/>
+        <p class="h4 text-center mb-4">Log in</p>
+        <div class="form-group">
+    		<label for="formGrouploginusername" class="grey-text">Username:</label>
+		<input type="text" id="formGroupusername" class="form-control" name="login" style="width: 130%"></input>
+		
+		</div>
+		
+		<br/>
+		
+	    <div class="form-group">
+	  	<label for="formGrouploginpassword" class="grey-text">Password:</label>
+		<input type="password" id="formGrouppassword" class="form-control" name="password" style="width: 130%"></input>
+		</div>
+		
+		<br/>
+		
+		<div class="form-group">
+		<label for="formGrouploginkind" class="grey-text">Kind:</label>
+		<input type="number" id="formGroupkind" class="form-control" name="kind" style="width: 130%" value="0"
+			min="0" max="3"></input>
+		</div>
+                  
+         <div class="text-center mt-4">
+			  <button class="btn btn-elegant" type="submit" style="width: 130%">Log In</button>
+		</div>
     </form>
-</div>
+    </div>
+    </div>
+    	<footer th:replace="fragments/footer" />
 </body>
 </html>
