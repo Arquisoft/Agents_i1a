@@ -5,7 +5,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.net.URL;
 
-import dbmanagement.DBService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -37,14 +36,10 @@ public class MainControllerTest {
 
     @Autowired
     private WebApplicationContext context;
-
-    @Autowired
-    private DBService db;
-
+    
     @Before
     public void setUp() throws Exception {
         this.base = new URL("http://localhost:" + port + "/");
-        db.wipeAll();
         template = new TestRestTemplate();
         Application.main(new String[0]);
         mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
