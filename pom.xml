@@ -56,6 +56,10 @@
 			<version>1.4.3.RELEASE</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.mongodb</groupId>
+			<artifactId>mongo-java-driver</artifactId>
+		</dependency>
     </dependencies>
 
 	<properties>
