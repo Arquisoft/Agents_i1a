@@ -52,7 +52,6 @@ public class APIControllerTest {
     @Before
     public void setUp() throws Exception {
         new URL("http://localhost:" + port + "/");
-//        db.wipeAll();
         new TestRestTemplate();
         mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
     }

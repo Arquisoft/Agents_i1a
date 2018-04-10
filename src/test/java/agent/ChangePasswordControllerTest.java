@@ -29,6 +29,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.WebApplicationContext;
 
 import dbmanagement.DBService;
+import validator.ChangePasswordValidator;
 
 /**
  * Created by guille on 20/02/2017.
@@ -44,7 +45,6 @@ public class ChangePasswordControllerTest {
     private int port;
 
     private URL base;
-    //private MongoClientURI base;
     private RestTemplate template;
     private MockMvc mockMvc;
 
@@ -53,12 +53,22 @@ public class ChangePasswordControllerTest {
 
     @Autowired
     private DBService db;
+    
+    @Autowired
+    private ChangePasswordValidator validator;
 
     @Before
     public void setUp() throws Exception {
         this.base = new URL("http://localhost:" + port + "/");
         template = new TestRestTemplate();
         mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
+    }
+    
+    @Test
+    public void supports() throws Exception {
+    	assertTrue( validator.supports( AgentDTO.class ) );
+    	assertFalse( validator.supports( Agent.class ));
+    	assertFalse( validator.supports( AgentInfo.class ));
     }
 
     @Test
@@ -133,4 +143,26 @@ public class ChangePasswordControllerTest {
         assertFalse(retrieved.getPassword().equals("123lucia"));
 
     }
+    
+    @Test
+    public void testPostChangePasswordFail3() throws Exception {
+        AgentInfo user = new AgentInfo("lucia", "lucia123@uniovi.es", "lucia123","8",1);
+        db.insertUser(user);
+
+        mockMvc.perform(post("/changePassword")
+                .param("user", "8")
+                .param("old", "lucia1")
+                .param("password", "123lucia")
+                .param("password2", "13lucia")
+                .param("kind", "1"))
+                .andExpect(status().isOk())
+                .andExpect(model().hasErrors());
+        AgentInfo retrieved = db.getAgent("8", "lucia123",1);
+        assertNotNull(retrieved);
+        assertTrue(retrieved.getId().equals("8"));
+        assertTrue(retrieved.getPassword().equals("lucia123"));
+        assertFalse(retrieved.getPassword().equals("123lucia"));
+
+    }
+    
 }

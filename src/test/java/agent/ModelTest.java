@@ -103,6 +103,7 @@ public class ModelTest {
         Agent user2 = new Agent(name,email,password,location,NIF,kind);
         Agent user3 = new Agent(data);
         
+        assertFalse(user.equals(user2));
         assertFalse(user2.equals(user3));
 
         assertTrue(user.getPassword().equals(password));
