@@ -41,7 +41,6 @@ public class MainControllerTest {
     public void setUp() throws Exception {
         this.base = new URL("http://localhost:" + port + "/");
         template = new TestRestTemplate();
-        Application.main(new String[0]);
         mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
     }
 
