@@ -1,13 +1,7 @@
-package agent;
-
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+package tests;
 
 import java.net.URL;
 
-import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,16 +11,14 @@ import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.boot.test.TestRestTemplate;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.WebApplicationContext;
+
+import agent.Application;
 
 @SuppressWarnings("deprecation")
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -39,17 +31,15 @@ public class RestControllerTest {
 	 @Value("${local.server.port}")
 	    private int port;
 
-	    private URL base;
-	    private RestTemplate template;
-	    private MockMvc mockMvc;
+	 	private MockMvc mockMvc;
 
 	    @Autowired
 	    private WebApplicationContext context;
 
 	    @Before
 	    public void setUp() throws Exception {
-	        this.base = new URL("http://localhost:" + port + "/");
-	        template = new TestRestTemplate();
+	        URL base = new URL("http://localhost:" + port + "/");
+	        RestTemplate template = new TestRestTemplate();
 	        template.getForEntity(base.toString(), String.class);
 	        mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
 	    }

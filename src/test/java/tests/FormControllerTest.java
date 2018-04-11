@@ -1,4 +1,4 @@
-package agent;
+package tests;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
@@ -27,6 +27,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.WebApplicationContext;
 
+import agent.AgentInfo;
+import agent.Application;
 import dbmanagement.DBService;
 
 @SuppressWarnings("deprecation")
@@ -59,11 +61,14 @@ public class FormControllerTest {
     @Test
     public void testLoginPage() throws Exception {
         template.getForEntity(base.toString(), String.class);
-        mockMvc.perform(get("/login"))
+        String message = mockMvc.perform(get("/login"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Username:")))
                 .andExpect(content().string(containsString("Password:")))
-                .andExpect(content().string(containsString("Kind:")));
+                .andExpect(content().string(containsString("Kind:")))
+                .andReturn().toString();
+        
+        assertNotNull(message);
     }
 
     @Test
@@ -116,12 +121,15 @@ public class FormControllerTest {
 
     @Test
     public void testLoginIncorrect() throws Exception {
-        mockMvc.perform(post("/login")
+        String message = mockMvc.perform(post("/login")
                 .param("login", "inco@rre.ct")
                 .param("password", "user")
                 .param("kind", "1"))
                 .andExpect(status().isOk())
-                .andExpect(content().string(containsString("Invalid login details.")));
+                .andExpect(content().string(containsString("Invalid login details.")))
+                .andReturn().toString();
+        
+        assertNotNull(message);
     }
 
 }

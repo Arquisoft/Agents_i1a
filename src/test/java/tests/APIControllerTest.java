@@ -1,4 +1,4 @@
-package agent;
+package tests;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
@@ -29,6 +29,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import agent.AgentInfo;
+import agent.Application;
 import dbmanagement.DBService;
 
 @SuppressWarnings("deprecation")

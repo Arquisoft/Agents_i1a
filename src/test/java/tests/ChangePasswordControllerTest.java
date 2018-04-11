@@ -1,4 +1,4 @@
-package agent;
+package tests;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.Assert.assertFalse;
@@ -28,6 +28,10 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.WebApplicationContext;
 
+import agent.Agent;
+import agent.AgentDTO;
+import agent.AgentInfo;
+import agent.Application;
 import dbmanagement.DBService;
 import validator.ChangePasswordValidator;
 
@@ -44,8 +48,6 @@ public class ChangePasswordControllerTest {
     @Value("${local.server.port}")
     private int port;
 
-    private URL base;
-    private RestTemplate template;
     private MockMvc mockMvc;
 
     @Autowired
@@ -59,8 +61,8 @@ public class ChangePasswordControllerTest {
 
     @Before
     public void setUp() throws Exception {
-        this.base = new URL("http://localhost:" + port + "/");
-        template = new TestRestTemplate();
+        URL base = new URL("http://localhost:" + port + "/");
+        RestTemplate template = new TestRestTemplate();
         template.getForEntity(base.toString(), String.class);
         mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
     }
@@ -74,10 +76,13 @@ public class ChangePasswordControllerTest {
 
     @Test
     public void testGetChangePasswordPage() throws Exception {
-        mockMvc.perform(get("/changePassword"))
+        String message = mockMvc.perform(get("/changePassword"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("passwform")))
-                .andExpect(content().string(containsString("Go back to")));
+                .andExpect(content().string(containsString("Go back to")))
+                .andReturn().toString();
+        
+        assertNotNull(message);
     }
 
     @Test

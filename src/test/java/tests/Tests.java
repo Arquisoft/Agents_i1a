@@ -1,3 +1,4 @@
+package tests;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import org.junit.BeforeClass;
@@ -7,11 +8,11 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({
-	agent.APIControllerTest.class,
-	agent.ChangePasswordControllerTest.class,
-	agent.FormControllerTest.class,
-	agent.MainControllerTest.class,
-	agent.ModelTest.class,
+	APIControllerTest.class,
+	ChangePasswordControllerTest.class,
+	FormControllerTest.class,
+	MainControllerTest.class,
+	ModelTest.class,
 	//agent.RestControllerTest.class
 })
 public class Tests {
