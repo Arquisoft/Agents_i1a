@@ -30,16 +30,13 @@ public class ChangePasswordValidator implements Validator {
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "newpassword2", "error.empty");
 
 		AgentDTO agent = (AgentDTO) target;
-		if(!agent.getKind().isEmpty()) {
-			AgentInfo user = service.getAgent(agent.getId(), agent.getPassword(), Integer.parseInt(agent.getKind()));
-			if (user == null) {
-				errors.rejectValue("password", "error.password");
+		AgentInfo user = service.getAgent(agent.getId(), agent.getPassword(), Integer.parseInt(agent.getKind()));
+		if (user == null) {
+			errors.rejectValue("password", "error.password");
 
-			} else if (!agent.getNewpassword().equals(agent.getNewpassword2())) {
-				errors.rejectValue("newpassword", "error.passwords.matching");
-			}
+		} else if (!agent.getNewpassword().equals(agent.getNewpassword2())) {
+			errors.rejectValue("newpassword", "error.passwords.matching");
 		}
-		
 	}
 
 }

@@ -53,7 +53,7 @@ public class ModelTest {
 
         AgentInfo user = new AgentInfo(name,email,password,NIF,kind);
         AgentInfo user2 = new AgentInfo(name,email,password,location,NIF,kind);
-
+        
         assertTrue(user.getPassword().equals(password));
         assertTrue(user.getName().equals(name));
         assertTrue(user.getId().equals(NIF));
@@ -76,10 +76,13 @@ public class ModelTest {
                 ", email='mail@mail.com', password='password', location='caceres', id='10203040A'" +
                 ", kind=1}", user2.toString());
 
+        AgentInfo user3 = new AgentInfo(name,"n",password,location,NIF,kind);
+        
         assertFalse(user.hashCode() == user2.hashCode());
         assertFalse(user.equals(user2));
         assertFalse(user.equals(null));
         assertTrue(user.equals(user));
+        assertFalse(user3.equals(user2));
     }
     
     @Test
@@ -102,10 +105,12 @@ public class ModelTest {
         Agent user = new Agent(name,email,password,NIF,kind);
         Agent user2 = new Agent(name,email,password,location,NIF,kind);
         Agent user3 = new Agent(data);
+        Agent user4 = new Agent();
         
         assertFalse(user.equals(user2));
         assertFalse(user2.equals(user3));
-
+        assertFalse(user3.equals(user4));
+        
         assertTrue(user.getPassword().equals(password));
         user.setPassword("nueva");
         assertFalse(user.getPassword().equals(password));

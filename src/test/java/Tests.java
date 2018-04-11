@@ -11,7 +11,8 @@ import org.junit.runners.Suite.SuiteClasses;
 	agent.ChangePasswordControllerTest.class,
 	agent.FormControllerTest.class,
 	agent.MainControllerTest.class,
-	agent.ModelTest.class
+	agent.ModelTest.class,
+	//agent.RestControllerTest.class
 })
 public class Tests {
 	@BeforeClass

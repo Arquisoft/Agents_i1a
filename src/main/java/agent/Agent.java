@@ -18,7 +18,7 @@ public class Agent {
     private String id;
     private int kind;
 
-    private Agent() {}
+    public Agent() {}
     
     public Agent(String name, String email, String password,String id, int kind) {
         this.name = name;
