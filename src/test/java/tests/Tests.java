@@ -13,7 +13,7 @@ import org.junit.runners.Suite.SuiteClasses;
 	FormControllerTest.class,
 	MainControllerTest.class,
 	ModelTest.class,
-	//agent.RestControllerTest.class
+	RestControllerTest.class
 })
 public class Tests {
 	@BeforeClass

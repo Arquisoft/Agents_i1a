@@ -156,7 +156,7 @@ public class ChangePasswordControllerTest {
 
         mockMvc.perform(post("/changePassword")
                 .param("user", "8")
-                .param("old", "lucia1")
+                .param("old", "lucia123")
                 .param("password", "123lucia")
                 .param("password2", "13lucia")
                 .param("kind", "1"))

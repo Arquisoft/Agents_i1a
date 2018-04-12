@@ -55,12 +55,12 @@ public class FormControllerTest {
     public void setUp() throws Exception {
         this.base = new URL("http://localhost:" + port + "/");
         template = new TestRestTemplate();
+        template.getForEntity(base.toString(), String.class);
         mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
     }
 
     @Test
     public void testLoginPage() throws Exception {
-        template.getForEntity(base.toString(), String.class);
         String message = mockMvc.perform(get("/login"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Username:")))
