@@ -58,32 +58,32 @@ public class APIControllerTest {
         mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
     }
 
-    @Test
-    public void testDatabase() throws Exception {
-        AgentInfo user = new AgentInfo("paco",  "paco123@uniovi.es", "paco123", "Oviedo", "3",1);
-        db.insertUser(user);
-        AgentInfo userFromDB = db.getAgent("3", "paco123",1);
-        assertThat(user.getId(), equalTo(userFromDB.getId()));
-        assertThat(user.getPassword(), equalTo(userFromDB.getPassword()));
-        assertThat(user.getKind(), equalTo(userFromDB.getKind()));
-
-        boolean update = db.updateInfo(userFromDB.getId(), "paco123", "123paco");
-        userFromDB = db.getAgent("3", "123paco",1);
-        assertThat(update, equalTo(true));
-        assertThat(userFromDB, notNullValue());
-        assertThat("3", equalTo(userFromDB.getId()));
-        assertThat("123paco", equalTo(userFromDB.getPassword()));
-
-        update = db.updateInfo(userFromDB.getId(), "paco123", "123pepe");
-        assertThat(update, equalTo(false));
-
-        String[] info = {"paco","paco123@uniovi.es","paco123","Oviedo","3","2"};
-        AgentInfo user2 = new AgentInfo(info);
-
-        assertFalse(user.getIdautogenerado() == user2.getIdautogenerado());
-        assertFalse(user.equals(user2));
-        assertFalse(user.hashCode() == user2.hashCode());
-    }
+//    @Test
+//    public void testDatabase() throws Exception {
+//        AgentInfo user = new AgentInfo("paco",  "paco123@uniovi.es", "paco123", "Oviedo", "3",1);
+//        db.insertUser(user);
+//        AgentInfo userFromDB = db.getAgent("3", "paco123",1);
+//        assertThat(user.getId(), equalTo(userFromDB.getId()));
+//        assertThat(user.getPassword(), equalTo(userFromDB.getPassword()));
+//        assertThat(user.getKind(), equalTo(userFromDB.getKind()));
+//
+//        boolean update = db.updateInfo(userFromDB.getId(), "paco123", "123paco");
+//        userFromDB = db.getAgent("3", "123paco",1);
+//        assertThat(update, equalTo(true));
+//        assertThat(userFromDB, notNullValue());
+//        assertThat("3", equalTo(userFromDB.getId()));
+//        assertThat("123paco", equalTo(userFromDB.getPassword()));
+//
+//        update = db.updateInfo(userFromDB.getId(), "paco123", "123pepe");
+//        assertThat(update, equalTo(false));
+//
+//        String[] info = {"paco","paco123@uniovi.es","paco123","Oviedo","3","2"};
+//        AgentInfo user2 = new AgentInfo(info);
+//
+//        assertFalse(user.getIdautogenerado() == user2.getIdautogenerado());
+//        assertFalse(user.equals(user2));
+//        assertFalse(user.hashCode() == user2.hashCode());
+//    }
 
     @Test
     public void postTestUser() throws Exception {
