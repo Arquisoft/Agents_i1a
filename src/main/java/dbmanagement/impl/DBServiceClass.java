@@ -43,6 +43,7 @@ public class DBServiceClass implements DBService {
         repository.insert(user);
     }
     
+    @Override
     public AgentInfo findById(String id) {
     	return repository.findById(id);
     }
