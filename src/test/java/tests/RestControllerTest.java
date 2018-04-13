@@ -26,7 +26,9 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.WebApplicationContext;
 
+import agent.AgentInfo;
 import agent.Application;
+import dbmanagement.DBService;
 
 @SuppressWarnings("deprecation")
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -43,6 +45,9 @@ public class RestControllerTest {
 
 	    @Autowired
 	    private WebApplicationContext context;
+	    
+	    @Autowired
+	    private DBService db;
 
 	    @Before
 	    public void setUp() throws Exception {
@@ -55,10 +60,13 @@ public class RestControllerTest {
 	    @Test
 	    public void testReturnAgentInfo() throws Exception {
 	    	
+	    	AgentInfo user = new AgentInfo("carlitos",  "cancan@uniovi.es", "seguridad", "Oviedo", "422",1);
+	        db.insertUser(user);
+	    	
 	    	String requestJson = 
 					"{ " + 
-						"\"id\":\"3\"," + 
-						"\"password\":\"123paco\"," + 
+						"\"id\":\"422\"," + 
+						"\"password\":\"seguridad\"," + 
 						"\"kind\":\"1\"" +
 					"}";
 			
@@ -71,9 +79,9 @@ public class RestControllerTest {
 			JSONObject agentInfo = new JSONObject( agent );
 			
 	    	assertNotNull( agent );
-	    	assertTrue( agentInfo.get("name").equals("paco") );
-	    	assertTrue( agentInfo.get("id").equals("3") );
-	    	assertTrue( agentInfo.get("password").equals("123paco") );
+	    	assertTrue( agentInfo.get("name").equals("carlitos") );
+	    	assertTrue( agentInfo.get("id").equals("422") );
+	    	assertTrue( agentInfo.get("password").equals("seguridad") );
 	    	assertTrue( agentInfo.get("kind").equals( 1 ) );
 	    }
 	    
@@ -98,15 +106,18 @@ public class RestControllerTest {
 	    
 	    @Test
 	    public void testOkUser() throws Exception {
-
-			String requestJson = 
+	    	
+	    	AgentInfo user = new AgentInfo("carlitos",  "cancan@uniovi.es", "seguridad", "Oviedo", "422",1);
+	        db.insertUser(user);
+	    	
+	    	String requestJson = 
 					"{ " + 
-						"\"id\":\"3\"," + 
-						"\"password\":\"123paco\"," + 
+						"\"id\":\"422\"," + 
+						"\"password\":\"seguridad\"," + 
 						"\"kind\":\"1\"" +
 					"}";
 			
-			MvcResult result = mockMvc.perform(post("/restAgentInfo").contentType( MediaType.APPLICATION_JSON_VALUE )
+			MvcResult result = mockMvc.perform(post("/restLogin").contentType( MediaType.APPLICATION_JSON_VALUE )
 				.content( requestJson ))
 				.andExpect(status().isOk())
 				.andReturn();
@@ -115,9 +126,9 @@ public class RestControllerTest {
 			JSONObject agentInfo = new JSONObject( agent );
 			
 	    	assertNotNull( agent );
-	    	assertTrue( agentInfo.get("name").equals("paco") );
-	    	assertTrue( agentInfo.get("id").equals("3") );
-	    	assertTrue( agentInfo.get("password").equals("123paco") );
+	    	assertTrue( agentInfo.get("name").equals("carlitos") );
+	    	assertTrue( agentInfo.get("id").equals("422") );
+	    	assertTrue( agentInfo.get("password").equals("seguridad") );
 	    	assertTrue( agentInfo.get("kind").equals( 1 ) );
 	    }
 	    
