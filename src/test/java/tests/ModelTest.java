@@ -82,15 +82,16 @@ public class ModelTest {
                 ", kind=1}", user2.toString());
 
         AgentInfo user3 = new AgentInfo(name,"n",password,location,NIF,kind);
-        String[] info = {"name","password","mail@mail.com","caceres","10203040A","1"};
+        String[] info = {"name","password","mail@mail.com","","333","1"};
         AgentInfo user4 = new AgentInfo(info);
+       
         
         assertFalse(user.hashCode() == user2.hashCode());
         assertFalse(user.equals(user2));
         assertFalse(user.equals(null));
         assertTrue(user.equals(user));
         assertFalse(user3.equals(user2));
-        assertFalse(user4.equals(user3));
+        assertFalse(user4.equals(user));
     }
     
     @Test

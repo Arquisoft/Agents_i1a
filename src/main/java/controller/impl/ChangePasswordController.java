@@ -34,10 +34,9 @@ public class ChangePasswordController implements controller.ChangePassword {
 	@RequestMapping(value = "/changePassword", method = RequestMethod.POST)
 	public String changePost(Model model, @Validated AgentDTO agentDTO, BindingResult result) {
 		validator.validate(agentDTO, result);
-		if(result.hasErrors()) {
+		if( result.hasErrors() || service.updateInfo(agentDTO.getId(), agentDTO.getPassword(), agentDTO.getNewpassword()) ) {
 			return "changePassword";
 		}
-		service.updateInfo(agentDTO.getId(), agentDTO.getPassword(), agentDTO.getNewpassword());
 		return "successChangePassword";
 
 	}
