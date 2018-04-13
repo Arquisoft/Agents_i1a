@@ -170,24 +170,4 @@ public class ChangePasswordControllerTest {
 
     }
     
-    @Test
-    public void testPostChangePasswordFail4() throws Exception {
-        AgentInfo user = new AgentInfo("lucia", "lucia123@uniovi.es", "lucia123","8",1);
-        db.insertUser(user);
-
-        mockMvc.perform(post("/changePassword")
-                .param("user", "8")
-                .param("old", "lucia123")
-                .param("password", "lucia123")
-                .param("password2", "lucia123")
-                .param("kind", "1"))
-                .andExpect(status().isOk())
-                .andExpect(model().hasErrors());
-        AgentInfo retrieved = db.findById("8");
-        assertTrue(retrieved.getId().equals("8"));
-        assertTrue(retrieved.getPassword().equals("lucia123"));
-        assertFalse(retrieved.getPassword().equals("123lucia"));
-
-    }
-    
 }
