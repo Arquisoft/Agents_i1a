@@ -45,4 +45,9 @@ public class DBServiceClass implements DBService {
 		return repository.findById(id);
 	}
 
+	@Override
+	public boolean existAgent(String id, String password, int kind) {
+		return getAgent(id, password, kind) == null ? false : true;
+	}
+
 }

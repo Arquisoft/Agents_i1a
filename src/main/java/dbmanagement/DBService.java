@@ -8,5 +8,6 @@ public interface DBService {
     AgentInfo getAgent(String id, String password, int kind);
     void insertUser(AgentInfo user);
     AgentInfo findById(String id);
+    boolean existAgent(String id, String password, int kind);
     
 }
